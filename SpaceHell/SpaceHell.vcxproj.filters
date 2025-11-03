@@ -21,10 +21,25 @@
     <ClCompile Include="SpaceHell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceHell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Fonts\Viper.ttf" />
+    <Font Include="Assets\Fonts\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Images\PlayerShip.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

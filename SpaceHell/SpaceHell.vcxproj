@@ -155,16 +155,25 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SpaceHell.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="SpaceHell.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Learning2DEngine\Learning2DEngine.vcxproj">
       <Project>{adab7eda-73c6-4e6d-8900-5b0b4ce68529}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Fonts\arial.ttf" />
+    <Font Include="Assets\Fonts\Viper.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Images\PlayerShip.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
