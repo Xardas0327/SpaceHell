@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{adab7eda-73c6-4e6d-8900-5b0b4ce68529}</ProjectGuid>
+    <RootNamespace>Learning2DEngine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PublicIncludeDirectories>$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <LibraryPath>$(SolutionDir)Plugins\Engine\lib\GLFW\lib-vc2022;$(SolutionDir)Plugins\Engine\lib\freetype\vs2015-2022\win64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PublicIncludeDirectories>$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <LibraryPath>$(SolutionDir)Plugins\Engine\lib\GLFW\lib-vc2022;$(SolutionDir)Plugins\Engine\lib\freetype\vs2015-2022\win64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PublicIncludeDirectories>$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <LibraryPath>$(SolutionDir)Plugins\Engine\lib\GLFW\lib-vc2022;$(SolutionDir)Plugins\Engine\lib\freetype\vs2015-2022\win64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PublicIncludeDirectories>$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <LibraryPath>$(SolutionDir)Plugins\Engine\lib\GLFW\lib-vc2022;$(SolutionDir)Plugins\Engine\lib\freetype\vs2015-2022\win64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Plugins\Engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Plugins\Engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Plugins\Engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Plugins\Engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Learning2DEngine\Animator\AnimationController.cpp" />
+    <ClCompile Include="Learning2DEngine\DebugTool\DebugBoxColliderRenderComponent.cpp" />
+    <ClCompile Include="Learning2DEngine\DebugTool\DebugBoxColliderRenderer.cpp" />
+    <ClCompile Include="Learning2DEngine\DebugTool\DebugCircleColliderRenderComponent.cpp" />
+    <ClCompile Include="Learning2DEngine\DebugTool\DebugCircleColliderRenderer.cpp" />
+    <ClCompile Include="Learning2DEngine\DebugTool\DebugPosition.cpp" />
+    <ClCompile Include="Learning2DEngine\Editor\TiledMapLoader.cpp" />
+    <ClCompile Include="Learning2DEngine\Object\FpsShower.cpp" />
+    <ClCompile Include="Learning2DEngine\ParticleSimulator\ParticleRenderer.cpp" />
+    <ClCompile Include="Learning2DEngine\ParticleSimulator\ParticleSystemComponent.cpp" />
+    <ClCompile Include="Learning2DEngine\Physics\ColliderComponentHandler.cpp" />
+    <ClCompile Include="Learning2DEngine\Physics\CollisionHelper.cpp" />
+    <ClCompile Include="Learning2DEngine\Physics\Rigidbody.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\RendererComponentHandler.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\SimpleSpriteRenderComponent.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\SimpleSpriteRenderer.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\SpriteRenderComponent.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\MultiSpriteRenderer.cpp" />
+    <ClCompile Include="Learning2DEngine\System\Camera.cpp" />
+    <ClCompile Include="Learning2DEngine\System\GameObjectManager.cpp" />
+    <ClCompile Include="Learning2DEngine\System\Time.cpp" />
+    <ClCompile Include="Learning2DEngine\UI\SimpleText2DRenderComponent.cpp" />
+    <ClCompile Include="Learning2DEngine\UI\SimpleText2DRenderer.cpp" />
+    <ClCompile Include="Learning2DEngine\UI\Text2DRenderComponent.cpp" />
+    <ClCompile Include="Learning2DEngine\UI\MultiText2DRenderer.cpp" />
+    <ClCompile Include="Learning2DEngine\UI\Text2DRenderData.cpp" />
+    <ClCompile Include="Learning2DEngine\UI\TextBoxComponent.cpp" />
+    <ClCompile Include="Learning2DEngine\UI\TextCharacterSet.cpp" />
+    <ClCompile Include="Plugins\glad.c" />
+    <ClCompile Include="Learning2DEngine\Render\MSAA.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\PostProcessEffect.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\RenderManager.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\ShaderConstant.cpp" />
+    <ClCompile Include="Learning2DEngine\System\Game.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\Shader.cpp" />
+    <ClCompile Include="Learning2DEngine\Render\Texture2D.cpp" />
+    <ClCompile Include="Learning2DEngine\System\Random.cpp" />
+    <ClCompile Include="Learning2DEngine\System\ResourceManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Learning2DEngine\Animator\AnimationController.h" />
+    <ClInclude Include="Learning2DEngine\Animator\AnimationFrame.h" />
+    <ClInclude Include="Learning2DEngine\DebugTool\DebugBoxColliderRenderComponent.h" />
+    <ClInclude Include="Learning2DEngine\DebugTool\DebugBoxColliderRenderer.h" />
+    <ClInclude Include="Learning2DEngine\DebugTool\DebugCircleColliderRenderComponent.h" />
+    <ClInclude Include="Learning2DEngine\DebugTool\DebugCircleColliderRenderer.h" />
+    <ClInclude Include="Learning2DEngine\DebugTool\DebugColliderRenderer.h" />
+    <ClInclude Include="Learning2DEngine\DebugTool\DebugMacro.h" />
+    <ClInclude Include="Learning2DEngine\DebugTool\DebugPosition.h" />
+    <ClInclude Include="Learning2DEngine\DebugTool\DebugRenderData.h" />
+    <ClInclude Include="Learning2DEngine\Editor\BaseLayerItemData.h" />
+    <ClInclude Include="Learning2DEngine\Editor\BaseObjectData.h" />
+    <ClInclude Include="Learning2DEngine\Editor\LayerItemData.h" />
+    <ClInclude Include="Learning2DEngine\Editor\ObjectBox.h" />
+    <ClInclude Include="Learning2DEngine\Editor\ObjectEllipse.h" />
+    <ClInclude Include="Learning2DEngine\Editor\ObjectImage.h" />
+    <ClInclude Include="Learning2DEngine\Editor\ObjectItem.h" />
+    <ClInclude Include="Learning2DEngine\Editor\ObjectLayerItemData.h" />
+    <ClInclude Include="Learning2DEngine\Editor\ObjectPoint.h" />
+    <ClInclude Include="Learning2DEngine\Editor\ObjectType.h" />
+    <ClInclude Include="Learning2DEngine\Editor\TiledMap.h" />
+    <ClInclude Include="Learning2DEngine\Editor\TiledMapConstant.h" />
+    <ClInclude Include="Learning2DEngine\Editor\TiledMapLoader.h" />
+    <ClInclude Include="Learning2DEngine\Editor\TiledMapTileset.h" />
+    <ClInclude Include="Learning2DEngine\EventSystem\CursorEnterEventItem.h" />
+    <ClInclude Include="Learning2DEngine\EventSystem\CursorPositionEventItem.h" />
+    <ClInclude Include="Learning2DEngine\EventSystem\MouseButtonEventItem.h" />
+    <ClInclude Include="Learning2DEngine\EventSystem\ScrollEventItem.h" />
+    <ClInclude Include="Learning2DEngine\Object\FpsShower.h" />
+    <ClInclude Include="Learning2DEngine\ParticleSimulator\BasicParticleSettings.h" />
+    <ClInclude Include="Learning2DEngine\ParticleSimulator\ParticleRenderer.h" />
+    <ClInclude Include="Learning2DEngine\ParticleSimulator\ParticleRenderData.h" />
+    <ClInclude Include="Learning2DEngine\ParticleSimulator\ParticleSystemComponent.h" />
+    <ClInclude Include="Learning2DEngine\Physics\BaseBoxColliderComponent.h" />
+    <ClInclude Include="Learning2DEngine\Physics\BaseCircleColliderComponent.h" />
+    <ClInclude Include="Learning2DEngine\Physics\BoxColliderComponent.h" />
+    <ClInclude Include="Learning2DEngine\Physics\CircleColliderComponent.h" />
+    <ClInclude Include="Learning2DEngine\Physics\BaseColliderComponent.h" />
+    <ClInclude Include="Learning2DEngine\Physics\ColliderComponentHandler.h" />
+    <ClInclude Include="Learning2DEngine\Physics\ColliderMode.h" />
+    <ClInclude Include="Learning2DEngine\Physics\ColliderType.h" />
+    <ClInclude Include="Learning2DEngine\Physics\Collision.h" />
+    <ClInclude Include="Learning2DEngine\Physics\CollisionHelper.h" />
+    <ClInclude Include="Learning2DEngine\Physics\CollisionData.h" />
+    <ClInclude Include="Learning2DEngine\Physics\BaseRigidbody.h" />
+    <ClInclude Include="Learning2DEngine\Physics\Rigidbody.h" />
+    <ClInclude Include="Learning2DEngine\Render\BaseColorDynamicData.h" />
+    <ClInclude Include="Learning2DEngine\Render\BaseMultiRenderer.h" />
+    <ClInclude Include="Learning2DEngine\Render\BaseRenderer.h" />
+    <ClInclude Include="Learning2DEngine\Render\BaseRendererComponent.h" />
+    <ClInclude Include="Learning2DEngine\Render\IRenderer.h" />
+    <ClInclude Include="Learning2DEngine\Render\Blend.h" />
+    <ClInclude Include="Learning2DEngine\ParticleSimulator\ParticleSettings.h" />
+    <ClInclude Include="Learning2DEngine\Render\MSAA.h" />
+    <ClInclude Include="Learning2DEngine\ParticleSimulator\Particle.h" />
+    <ClInclude Include="Learning2DEngine\ParticleSimulator\ParticleSystemSettings.h" />
+    <ClInclude Include="Learning2DEngine\Render\MultiSpriteDynamicData.h" />
+    <ClInclude Include="Learning2DEngine\Render\PostProcessEffect.h" />
+    <ClInclude Include="Learning2DEngine\Render\RenderData.h" />
+    <ClInclude Include="Learning2DEngine\Render\RendererComponent.h" />
+    <ClInclude Include="Learning2DEngine\Render\RendererComponentHandler.h" />
+    <ClInclude Include="Learning2DEngine\Render\RendererMode.h" />
+    <ClInclude Include="Learning2DEngine\Render\Resolution.h" />
+    <ClInclude Include="Learning2DEngine\Render\ShaderConstant.h" />
+    <ClInclude Include="Learning2DEngine\Render\SimpleSpriteRenderComponent.h" />
+    <ClInclude Include="Learning2DEngine\Render\SimpleSpriteRenderer.h" />
+    <ClInclude Include="Learning2DEngine\Render\SpriteRenderComponent.h" />
+    <ClInclude Include="Learning2DEngine\Render\SpriteRenderData.h" />
+    <ClInclude Include="Learning2DEngine\Render\MultiSpriteRenderer.h" />
+    <ClInclude Include="Learning2DEngine\Render\Texture2DContainer.h" />
+    <ClInclude Include="Learning2DEngine\Render\UVTexture2DContainer.h" />
+    <ClInclude Include="Learning2DEngine\Render\WindowType.h" />
+    <ClInclude Include="Learning2DEngine\System\BaseComponentHandler.h" />
+    <ClInclude Include="Learning2DEngine\System\BaseLateUpdaterComponent.h" />
+    <ClInclude Include="Learning2DEngine\System\BaseUpdaterComponent.h" />
+    <ClInclude Include="Learning2DEngine\System\Camera.h" />
+    <ClInclude Include="Learning2DEngine\System\Component.h" />
+    <ClInclude Include="Learning2DEngine\EventSystem\EventHandler.h" />
+    <ClInclude Include="Learning2DEngine\EventSystem\EventItem.h" />
+    <ClInclude Include="Learning2DEngine\System\GameObjectManager.h" />
+    <ClInclude Include="Learning2DEngine\System\ComponentManager.h" />
+    <ClInclude Include="Learning2DEngine\System\Cursor.h" />
+    <ClInclude Include="Learning2DEngine\System\Game.h" />
+    <ClInclude Include="Learning2DEngine\Render\IResolutionRefresher.h" />
+    <ClInclude Include="Learning2DEngine\EventSystem\KeyboardEventItem.h" />
+    <ClInclude Include="Learning2DEngine\System\GameObject.h" />
+    <ClInclude Include="Learning2DEngine\System\IComponentHandler.h" />
+    <ClInclude Include="Learning2DEngine\System\ICursorRefresher.h" />
+    <ClInclude Include="Learning2DEngine\System\InputStatus.h" />
+    <ClInclude Include="Learning2DEngine\DebugTool\Log.h" />
+    <ClInclude Include="Learning2DEngine\System\IKeyboardRefresher.h" />
+    <ClInclude Include="Learning2DEngine\System\LateUpdaterComponent.h" />
+    <ClInclude Include="Learning2DEngine\System\LateUpdaterComponentHandler.h" />
+    <ClInclude Include="Learning2DEngine\System\Math.h" />
+    <ClInclude Include="Learning2DEngine\System\Property.h" />
+    <ClInclude Include="Learning2DEngine\System\PropertyComponent.h" />
+    <ClInclude Include="Learning2DEngine\System\PropertyType.h" />
+    <ClInclude Include="Learning2DEngine\System\Random.h" />
+    <ClInclude Include="Learning2DEngine\EventSystem\ResolutionEventItem.h" />
+    <ClInclude Include="Learning2DEngine\System\ResourceManager.h" />
+    <ClInclude Include="Learning2DEngine\Render\Shader.h" />
+    <ClInclude Include="Learning2DEngine\Render\Texture2D.h" />
+    <ClInclude Include="Learning2DEngine\Render\RenderManager.h" />
+    <ClInclude Include="Learning2DEngine\System\Singleton.h" />
+    <ClInclude Include="Learning2DEngine\Render\Texture2DSettings.h" />
+    <ClInclude Include="Learning2DEngine\System\ThreadComponentHandler.h" />
+    <ClInclude Include="Learning2DEngine\System\Time.h" />
+    <ClInclude Include="Learning2DEngine\System\Transform.h" />
+    <ClInclude Include="Learning2DEngine\System\UpdaterComponent.h" />
+    <ClInclude Include="Learning2DEngine\System\UpdaterComponentHandler.h" />
+    <ClInclude Include="Learning2DEngine\UI\FontSizePair.h" />
+    <ClInclude Include="Learning2DEngine\UI\SimpleText2DRenderComponent.h" />
+    <ClInclude Include="Learning2DEngine\UI\SimpleText2DRenderer.h" />
+    <ClInclude Include="Learning2DEngine\UI\Text2DDynamicData.h" />
+    <ClInclude Include="Learning2DEngine\UI\Text2DRenderComponent.h" />
+    <ClInclude Include="Learning2DEngine\UI\Text2DRenderData.h" />
+    <ClInclude Include="Learning2DEngine\UI\MultiText2DRenderer.h" />
+    <ClInclude Include="Learning2DEngine\UI\TextBoxComponent.h" />
+    <ClInclude Include="Learning2DEngine\UI\TextBoxMode.h" />
+    <ClInclude Include="Learning2DEngine\UI\TextCharacterSet.h" />
+    <ClInclude Include="Learning2DEngine\UI\FreeTypeCharacter.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
