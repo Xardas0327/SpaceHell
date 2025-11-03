@@ -57,14 +57,15 @@ void GameController::Update()
         return;
     }
 
-    if (Game::GetKeyboardButtonStatus(GLFW_KEY_A) > 0 && player->transform.GetPosition().x > 0.0f)
+    if ((Game::GetKeyboardButtonStatus(GLFW_KEY_A) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_LEFT) > 0)
+        && player->transform.GetPosition().x > 0.0f)
     {
 		player->transform.AddPosition(glm::vec2(-PLAYER_SPEED * Time::GetDeltaTime(), 0.0f));
         if(player->transform.GetPosition().x < 0.0f)
 			player->transform.SetPosition(glm::vec2(0.0f, player->transform.GetPosition().y));
     }
 
-    if (Game::GetKeyboardButtonStatus(GLFW_KEY_D) > 0
+    if ((Game::GetKeyboardButtonStatus(GLFW_KEY_D) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_RIGHT) > 0)
         && player->transform.GetPosition().x < Game::mainCamera.GetResolution().GetWidth() - PLAYER_SIZE.x)
     {
         player->transform.AddPosition(glm::vec2(PLAYER_SPEED * Time::GetDeltaTime(), 0.0f));
@@ -72,14 +73,15 @@ void GameController::Update()
             player->transform.SetPosition(glm::vec2(Game::mainCamera.GetResolution().GetWidth() - PLAYER_SIZE.x, player->transform.GetPosition().y));
     }
 
-    if (Game::GetKeyboardButtonStatus(GLFW_KEY_W) > 0 && player->transform.GetPosition().y > 0.0f)
+    if ((Game::GetKeyboardButtonStatus(GLFW_KEY_W) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_UP) > 0)
+        && player->transform.GetPosition().y > 0.0f)
     {
         player->transform.AddPosition(glm::vec2(0.0f, -PLAYER_SPEED * Time::GetDeltaTime()));
         if (player->transform.GetPosition().y < 0.0f)
             player->transform.SetPosition(glm::vec2(player->transform.GetPosition().x, 0.0f));
     }
 
-    if (Game::GetKeyboardButtonStatus(GLFW_KEY_S) > 0
+    if ((Game::GetKeyboardButtonStatus(GLFW_KEY_A) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_DOWN) > 0)
         && player->transform.GetPosition().x < Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y)
     {
         player->transform.AddPosition(glm::vec2(0.0f, PLAYER_SPEED * Time::GetDeltaTime()));
