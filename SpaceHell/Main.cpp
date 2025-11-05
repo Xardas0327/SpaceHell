@@ -4,7 +4,7 @@
 
 using namespace Learning2DEngine::Render;
 
-const Resolution resolution(480, 700);
+const Resolution resolution(700, 700);
 SpaceHell game;
 
 int main()

@@ -14,7 +14,7 @@ using namespace Learning2DEngine::Object;
 using namespace Learning2DEngine::UI;
 
 GameController::GameController(GameObject* gameObject)
-    : UpdaterComponent(gameObject), Component(gameObject), player(nullptr),
+	: UpdaterComponent(gameObject), Component(gameObject), player(nullptr), backgroundController(nullptr),
     gameFont("Assets/Fonts/ViperSpikes.ttf", 24), fpsFont("Assets/Fonts/arial.ttf", 24)
 {
 
@@ -47,6 +47,16 @@ void GameController::Init()
         RendererMode::RENDER,
         ResourceManager::GetInstance().GetTexture("Player")
     );
+
+    //Background
+    auto background = GameObjectManager::GetInstance().CreateGameObject(
+        Transform(
+            glm::vec2(0.0f, 0.0f),
+            Game::mainCamera.GetResolution().ToVec2()
+        )
+    );
+	backgroundController = background->AddComponent<BackgroundController>();
+	backgroundController->Start();
 }
 
 void GameController::Update()
@@ -81,7 +91,7 @@ void GameController::Update()
             player->transform.SetPosition(glm::vec2(player->transform.GetPosition().x, 0.0f));
     }
 
-    if ((Game::GetKeyboardButtonStatus(GLFW_KEY_A) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_DOWN) > 0)
+    if ((Game::GetKeyboardButtonStatus(GLFW_KEY_S) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_DOWN) > 0)
         && player->transform.GetPosition().x < Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y)
     {
         player->transform.AddPosition(glm::vec2(0.0f, PLAYER_SPEED * Time::GetDeltaTime()));
