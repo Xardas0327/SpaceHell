@@ -50,7 +50,25 @@
     <Font Include="Assets\Fonts\arial.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Images\PlayerShip.png">
+    <Image Include="Assets\Images\Background\Background2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Background\Background1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Player\PlayerShip.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Player\Shield.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Player\Shot1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Player\Shot2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Player\Shot3.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

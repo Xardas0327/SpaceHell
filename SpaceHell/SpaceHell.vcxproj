@@ -177,7 +177,13 @@
     <Font Include="Assets\Fonts\Viper.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Images\PlayerShip.png" />
+    <Image Include="Assets\Images\Background\Background1.png" />
+    <Image Include="Assets\Images\Background\Background2.png" />
+    <Image Include="Assets\Images\Player\PlayerShip.png" />
+    <Image Include="Assets\Images\Player\Shield.png" />
+    <Image Include="Assets\Images\Player\Shot1.png" />
+    <Image Include="Assets\Images\Player\Shot2.png" />
+    <Image Include="Assets\Images\Player\Shot3.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

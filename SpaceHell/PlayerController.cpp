@@ -4,13 +4,14 @@
 #include <Learning2DEngine/System/GameObjectManager.h>
 #include <Learning2DEngine/System/ResourceManager.h>
 #include <Learning2DEngine/System/Time.h>
-#include <Learning2DEngine/Render/SpriteRenderComponent.h>
 
+using namespace Learning2DEngine::Animator;
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 
 PlayerController::PlayerController(GameObject* gameObject)
-	: UpdaterComponent(gameObject), Component(gameObject), isFrozen(true)
+	: UpdaterComponent(gameObject), Component(gameObject), isFrozen(true),
+	shieldSprite(nullptr), shieldAnimation(nullptr)
 {
 	
 }
@@ -23,11 +24,51 @@ void PlayerController::Init()
 
 	gameObject->AddComponent<SpriteRenderComponent>(
 		RendererMode::RENDER,
-		ResourceManager::GetInstance().GetTexture("Player")
+		ResourceManager::GetInstance().GetTexture("Player"),
+        0
 	);
+
+    //Shield
+    auto shieldGO = GameObjectManager::GetInstance().CreateGameObject(
+        Transform(
+            gameObject->transform.GetPosition() + PLAYER_SHIELD_OFFSET,
+            PLAYER_SIZE
+		)
+    );
+
+	auto& shieldTexture = ResourceManager::GetInstance().GetTexture("PlayerShield");
+    shieldSprite = shieldGO->AddComponent<SpriteRenderComponent>(
+        RendererMode::RENDER,
+        shieldTexture,
+        1,
+        glm::vec4(1.0f, 1.0f, 1.0f, 0.9f)
+    );
+
+    shieldAnimation = gameObject->AddComponent<AnimationController>(&shieldSprite->data, PLAYER_SHIELD_NUMBER, true);
+    for (int i = 0; i < PLAYER_SHIELD_NUMBER; ++i)
+    {
+        auto uvMatrix = glm::mat4x2{
+            i / 12.0f, 0.0f,
+            (i + 1.0f) / 12.0f, 0.0f,
+            (i + 1.0f) / 12.0f, 1.0f,
+            i / 12.0f, 1.0f
+        };
+        shieldAnimation->Add(AnimationFrame{
+            &shieldTexture,
+            uvMatrix,
+            0.25f
+            });
+    }
+    shieldAnimation->Play();
 }
 
 void PlayerController::Update()
+{
+    Move();
+    RefreshShieldPosition();
+}
+
+void PlayerController::Move()
 {
     if (isFrozen)
         return;
@@ -63,6 +104,13 @@ void PlayerController::Update()
         if (gameObject->transform.GetPosition().y > Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y)
             gameObject->transform.SetPosition(glm::vec2(gameObject->transform.GetPosition().x, Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y));
     }
+}
+
+void PlayerController::RefreshShieldPosition()
+{
+    shieldSprite->gameObject->transform.SetPosition(
+        gameObject->transform.GetPosition() + PLAYER_SHIELD_OFFSET
+	);
 }
 
 void PlayerController::Reset(glm::vec2 position)
