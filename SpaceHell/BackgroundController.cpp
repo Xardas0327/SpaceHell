@@ -1,6 +1,7 @@
 #include "BackgroundController.h"
 
 
+#include <Learning2DEngine/System/GameObjectManager.h>
 #include <Learning2DEngine/System/ResourceManager.h>
 #include <Learning2DEngine/System/Time.h>
 
@@ -83,4 +84,12 @@ void BackgroundController::Start(bool reset)
 void BackgroundController::Stop()
 {
 	isRunning = false;
+}
+
+BackgroundController* BackgroundController::Create(const glm::vec2& scale)
+{
+	auto background = GameObjectManager::GetInstance().CreateGameObject(
+		Transform(glm::vec2(0.0f, 0.0f), scale)
+	);
+	return background->AddComponent<BackgroundController>();
 }

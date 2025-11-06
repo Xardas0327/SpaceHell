@@ -31,4 +31,6 @@ public:
 
     void Start(bool reset = false);
 	void Stop();
+
+	static BackgroundController* Create(const glm::vec2& scale);
 };
