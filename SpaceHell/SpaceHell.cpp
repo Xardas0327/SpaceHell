@@ -26,10 +26,8 @@ void SpaceHell::Init()
 
     resourceManager.LoadTextureFromFile("Player", "Assets/Images/Player/PlayerShip.png", Texture2DSettings(true));
     resourceManager.LoadTextureFromFile("PlayerShield", "Assets/Images/Player/Shield.png", Texture2DSettings(true));
-    resourceManager.LoadTextureFromFile("PlayerShot1", "Assets/Images/Player/Shot1.png", Texture2DSettings(true));
-    resourceManager.LoadTextureFromFile("PlayerShot2", "Assets/Images/Player/Shot2.png", Texture2DSettings(true));
-    resourceManager.LoadTextureFromFile("PlayerShot3", "Assets/Images/Player/Shot3.png", Texture2DSettings(true));
 
+    resourceManager.LoadTextureFromFile("Bullet", "Assets/Images/Weapon/Bullet.png", Texture2DSettings(true));
     //GameController
     auto gameController = GameObjectManager::GetInstance().CreateGameObject();
     gameController->AddComponent<GameController>();

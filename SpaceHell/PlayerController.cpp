@@ -5,13 +5,16 @@
 #include <Learning2DEngine/System/ResourceManager.h>
 #include <Learning2DEngine/System/Time.h>
 
+#include "Bullet.h"
+
 using namespace Learning2DEngine::Animator;
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 
 PlayerController::PlayerController(GameObject* gameObject)
-	: UpdaterComponent(gameObject), Component(gameObject), isFrozen(true),
-	shieldSprite(nullptr), shieldAnimation(nullptr)
+	: UpdaterComponent(gameObject), Component(gameObject),
+	shieldSprite(nullptr), shieldAnimation(nullptr),
+	isFrozen(true), reloadTimer(0.0f), bulletNumber(PLAYER_BULLET_DEFAULT_NUMBER), maxBulletNumber(PLAYER_BULLET_DEFAULT_NUMBER)
 {
 	
 }
@@ -32,7 +35,7 @@ void PlayerController::Init()
     auto shieldGO = GameObjectManager::GetInstance().CreateGameObject(
         Transform(
             gameObject->transform.GetPosition() + PLAYER_SHIELD_OFFSET,
-            PLAYER_SIZE
+            PLAYER_SHIELD_SIZE
 		)
     );
 
@@ -64,11 +67,12 @@ void PlayerController::Init()
 
 void PlayerController::Update()
 {
-    Move();
+    CheckKeyboard();
     RefreshShieldPosition();
+    Reload();
 }
 
-void PlayerController::Move()
+void PlayerController::CheckKeyboard()
 {
     if (isFrozen)
         return;
@@ -104,6 +108,9 @@ void PlayerController::Move()
         if (gameObject->transform.GetPosition().y > Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y)
             gameObject->transform.SetPosition(glm::vec2(gameObject->transform.GetPosition().x, Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y));
     }
+
+    if(Game::GetKeyboardButtonStatus(GLFW_KEY_SPACE) == InputStatus::KEY_DOWN)
+        Shoot();
 }
 
 void PlayerController::RefreshShieldPosition()
@@ -111,6 +118,33 @@ void PlayerController::RefreshShieldPosition()
     shieldSprite->gameObject->transform.SetPosition(
         gameObject->transform.GetPosition() + PLAYER_SHIELD_OFFSET
 	);
+}
+
+void PlayerController::Reload()
+{
+    if (bulletNumber < maxBulletNumber)
+    {
+        reloadTimer += Time::GetDeltaTime();
+        if(reloadTimer >= PLAYER_RELOAD)
+        {
+            ++bulletNumber;
+            reloadTimer = 0.0f;
+		}
+    }
+}
+
+void PlayerController::Shoot()
+{
+    if (bulletNumber)
+    {
+        Bullet::Create(
+            gameObject->transform.GetPosition() + glm::vec2(gameObject->transform.GetScale().x / 2.0f - BULLET_SIZE.x / 2.0f, 0.0f),
+            glm::vec2(0.0f, -1.0f),
+            PLAYER_BULLET_SPEED
+        );
+
+		--bulletNumber;
+    }
 }
 
 void PlayerController::Reset(glm::vec2 position)

@@ -30,6 +30,9 @@
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceHell.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,13 +68,7 @@
     <Image Include="Assets\Images\Player\Shield.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Images\Player\Shot1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Images\Player\Shot2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Images\Player\Shot3.png">
+    <Image Include="Assets\Images\Weapon\Bullet.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
