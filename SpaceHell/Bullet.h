@@ -8,7 +8,7 @@
 constexpr glm::vec2 BULLET_SIZE(12.0f, 12.0f);
 constexpr int BULLET_NUMBER = 4;
 
-class Bullet : protected Learning2DEngine::System::UpdaterComponent
+class Bullet : public Learning2DEngine::System::UpdaterComponent
 {
 	friend class Learning2DEngine::System::GameObject;
 protected:

@@ -11,7 +11,7 @@
 
 enum class GameStatus { Menu, Play, Ended };
 
-class GameController : protected Learning2DEngine::System::UpdaterComponent
+class GameController : public Learning2DEngine::System::UpdaterComponent
 {
     friend class Learning2DEngine::System::GameObject;
 protected:

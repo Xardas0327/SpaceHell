@@ -9,7 +9,7 @@ constexpr float DEFAULT_BACKGROUND2_SPEED = 0.001f;
 constexpr float BACKGROUND1_SCREEN_RANGE = 0.05f;
 constexpr float BACKGROUND2_SCREEN_RANGE = 0.05f;
 
-class BackgroundController : protected Learning2DEngine::System::UpdaterComponent
+class BackgroundController : public Learning2DEngine::System::UpdaterComponent
 {
 	friend class Learning2DEngine::System::GameObject;
 protected:

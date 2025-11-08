@@ -8,13 +8,16 @@
 #include "Bullet.h"
 
 using namespace Learning2DEngine::Animator;
+using namespace Learning2DEngine::Physics;
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 
 PlayerController::PlayerController(GameObject* gameObject)
 	: UpdaterComponent(gameObject), Component(gameObject),
+    CircleColliderComponent(gameObject, PLAYER_SIZE.x / 2.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER, PLAYER_COllIDER_OFFSET),
 	shieldSprite(nullptr), shieldAnimation(nullptr),
-	isFrozen(true), reloadTimer(0.0f), bulletNumber(PLAYER_BULLET_DEFAULT_NUMBER), maxBulletNumber(PLAYER_BULLET_DEFAULT_NUMBER)
+	isFrozen(true), reloadTimer(0.0f), bulletNumber(PLAYER_BULLET_DEFAULT_NUMBER), maxBulletNumber(PLAYER_BULLET_DEFAULT_NUMBER),
+	life(PLAYER_DEFAULT_LIFE), speed(PLAYER_DEFAULT_SPEED)
 {
 	
 }
@@ -22,6 +25,7 @@ PlayerController::PlayerController(GameObject* gameObject)
 void PlayerController::Init()
 {
 	UpdaterComponent::Init();
+    CircleColliderComponent::Init();
 
 	gameObject->transform.SetScale(PLAYER_SIZE);
 
@@ -72,6 +76,12 @@ void PlayerController::Update()
     Reload();
 }
 
+void PlayerController::Destroy()
+{
+    CircleColliderComponent::Destroy();
+    UpdaterComponent::Destroy();
+}
+
 void PlayerController::CheckKeyboard()
 {
     if (isFrozen)
@@ -80,7 +90,7 @@ void PlayerController::CheckKeyboard()
     if ((Game::GetKeyboardButtonStatus(GLFW_KEY_A) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_LEFT) > 0)
         && gameObject->transform.GetPosition().x > 0.0f)
     {
-        gameObject->transform.AddPosition(glm::vec2(-PLAYER_SPEED * Time::GetDeltaTime(), 0.0f));
+        gameObject->transform.AddPosition(glm::vec2(-speed * Time::GetDeltaTime(), 0.0f));
         if (gameObject->transform.GetPosition().x < 0.0f)
             gameObject->transform.SetPosition(glm::vec2(0.0f, gameObject->transform.GetPosition().y));
     }
@@ -88,7 +98,7 @@ void PlayerController::CheckKeyboard()
     if ((Game::GetKeyboardButtonStatus(GLFW_KEY_D) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_RIGHT) > 0)
         && gameObject->transform.GetPosition().x < Game::mainCamera.GetResolution().GetWidth() - PLAYER_SIZE.x)
     {
-        gameObject->transform.AddPosition(glm::vec2(PLAYER_SPEED * Time::GetDeltaTime(), 0.0f));
+        gameObject->transform.AddPosition(glm::vec2(speed * Time::GetDeltaTime(), 0.0f));
         if (gameObject->transform.GetPosition().x > Game::mainCamera.GetResolution().GetWidth() - PLAYER_SIZE.x)
             gameObject->transform.SetPosition(glm::vec2(Game::mainCamera.GetResolution().GetWidth() - PLAYER_SIZE.x, gameObject->transform.GetPosition().y));
     }
@@ -96,7 +106,7 @@ void PlayerController::CheckKeyboard()
     if ((Game::GetKeyboardButtonStatus(GLFW_KEY_W) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_UP) > 0)
         && gameObject->transform.GetPosition().y > 0.0f)
     {
-        gameObject->transform.AddPosition(glm::vec2(0.0f, -PLAYER_SPEED * Time::GetDeltaTime()));
+        gameObject->transform.AddPosition(glm::vec2(0.0f, -speed * Time::GetDeltaTime()));
         if (gameObject->transform.GetPosition().y < 0.0f)
             gameObject->transform.SetPosition(glm::vec2(gameObject->transform.GetPosition().x, 0.0f));
     }
@@ -104,7 +114,7 @@ void PlayerController::CheckKeyboard()
     if ((Game::GetKeyboardButtonStatus(GLFW_KEY_S) > 0 || Game::GetKeyboardButtonStatus(GLFW_KEY_DOWN) > 0)
         && gameObject->transform.GetPosition().x < Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y)
     {
-        gameObject->transform.AddPosition(glm::vec2(0.0f, PLAYER_SPEED * Time::GetDeltaTime()));
+        gameObject->transform.AddPosition(glm::vec2(0.0f, speed * Time::GetDeltaTime()));
         if (gameObject->transform.GetPosition().y > Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y)
             gameObject->transform.SetPosition(glm::vec2(gameObject->transform.GetPosition().x, Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y));
     }
@@ -125,7 +135,7 @@ void PlayerController::Reload()
     if (bulletNumber < maxBulletNumber)
     {
         reloadTimer += Time::GetDeltaTime();
-        if(reloadTimer >= PLAYER_RELOAD)
+        if(reloadTimer >= PLAYER_BULLET_RELOAD)
         {
             ++bulletNumber;
             reloadTimer = 0.0f;
@@ -150,11 +160,45 @@ void PlayerController::Shoot()
 void PlayerController::Reset(glm::vec2 position)
 {
 	gameObject->transform.SetPosition(position);
+	speed = PLAYER_DEFAULT_SPEED;
+	bulletNumber = PLAYER_BULLET_DEFAULT_NUMBER;
+	maxBulletNumber = PLAYER_BULLET_DEFAULT_NUMBER;
+    ResetLife();
 }
 
 void PlayerController::SetFrozen(bool frozen)
 {
 	isFrozen = frozen;
+}
+
+void PlayerController::Hit()
+{
+    --life;
+	RefreshLifeShield();
+}
+
+void PlayerController::ResetLife()
+{
+    life = PLAYER_DEFAULT_LIFE;
+    RefreshLifeShield();
+}
+void PlayerController::RefreshLifeShield()
+{
+    shieldSprite->isActive = life > 1;
+    shieldSprite->data.color.a = (life - 1) * 0.3f;
+}
+
+void PlayerController::IncreaseMaxBulletNumber(int increase)
+{
+    maxBulletNumber += increase;
+    bulletNumber += increase;
+    if (bulletNumber > maxBulletNumber)
+		bulletNumber = maxBulletNumber;
+}
+
+void PlayerController::IncreaseSpeed(float increase)
+{
+    speed += increase;
 }
 
 PlayerController* PlayerController::Create(const glm::vec2& position)

@@ -6,17 +6,21 @@
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/System/UpdaterComponent.h>
 #include <Learning2DEngine/Render/SpriteRenderComponent.h>
+#include <Learning2DEngine/Physics/CircleColliderComponent.h>
 
 constexpr glm::vec2 PLAYER_SIZE(64.0f, 64.0f);
-constexpr float PLAYER_SPEED = 300.0f;
+constexpr float PLAYER_DEFAULT_SPEED = 300.0f;
 constexpr glm::vec2 PLAYER_SHIELD_SIZE(96.0f, 96.0f);
 constexpr glm::vec2 PLAYER_SHIELD_OFFSET(-16.0f, -10.0f);
+constexpr glm::vec2 PLAYER_COllIDER_OFFSET(0.0f, 5.0f);
 constexpr int PLAYER_SHIELD_NUMBER = 12;
 constexpr int PLAYER_BULLET_SPEED = 500;
-constexpr float PLAYER_RELOAD = 1.0f;
+constexpr float PLAYER_BULLET_RELOAD = 1.0f;
 constexpr int PLAYER_BULLET_DEFAULT_NUMBER = 1;
+constexpr int PLAYER_DEFAULT_LIFE = 4;
 
-class PlayerController : protected Learning2DEngine::System::UpdaterComponent
+class PlayerController : public Learning2DEngine::System::UpdaterComponent,
+                            public Learning2DEngine::Physics::CircleColliderComponent
 {
     friend class Learning2DEngine::System::GameObject;
 protected:
@@ -26,11 +30,14 @@ protected:
 	float reloadTimer;
 	int bulletNumber;
     int maxBulletNumber;
+    int life;
+    float speed;
 
     PlayerController(Learning2DEngine::System::GameObject* gameObject);
 
     void Init() override;
     void Update() override;
+    void Destroy() override;
 
     void CheckKeyboard();
     void RefreshShieldPosition();
@@ -39,6 +46,12 @@ protected:
 public:
     void Reset(glm::vec2 position);
 	void SetFrozen(bool frozen);
+    void Hit();
+
+    void ResetLife();
+	void RefreshLifeShield();
+	void IncreaseMaxBulletNumber(int increase);
+	void IncreaseSpeed(float increase);
 
 	static PlayerController* Create(const glm::vec2& position);
 };
