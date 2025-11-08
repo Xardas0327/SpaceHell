@@ -15,7 +15,7 @@ using namespace Learning2DEngine::UI;
 
 GameController::GameController(GameObject* gameObject)
     : UpdaterComponent(gameObject), Component(gameObject), player(nullptr), backgroundController(nullptr),
-    gameFont("Assets/Fonts/ViperSpikes.ttf", 24), fpsFont("Assets/Fonts/arial.ttf", 24)
+    fpsFont("Assets/Fonts/arial.ttf", 24)
 {
 
 }

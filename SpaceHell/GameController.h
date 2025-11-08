@@ -17,7 +17,6 @@ class GameController : public Learning2DEngine::System::UpdaterComponent
 protected:
     PlayerController* player;
     BackgroundController* backgroundController;
-    const Learning2DEngine::UI::FontSizePair gameFont;
     const Learning2DEngine::UI::FontSizePair fpsFont;
 
     GameController(Learning2DEngine::System::GameObject* gameObject);
