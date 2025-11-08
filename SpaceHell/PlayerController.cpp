@@ -135,7 +135,7 @@ void PlayerController::Reload()
     if (bulletNumber < maxBulletNumber)
     {
         reloadTimer += Time::GetDeltaTime();
-        if(reloadTimer >= PLAYER_BULLET_RELOAD)
+        if(reloadTimer >= (PLAYER_BULLET_RELOAD / maxBulletNumber))
         {
             ++bulletNumber;
             reloadTimer = 0.0f;

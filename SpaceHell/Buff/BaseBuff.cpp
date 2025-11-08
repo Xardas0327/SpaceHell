@@ -10,11 +10,11 @@ using namespace Learning2DEngine::Physics;
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 
-BaseBuff::BaseBuff(GameObject* gameObject, std::string&& textureId, float lifeInSeconds, int animationLength, float animationFrameLength)
+BaseBuff::BaseBuff(GameObject* gameObject, std::string&& textureId, float lifeInSeconds, int animationLength, float animationFrameLength, float speed)
 	: LateUpdaterComponent(gameObject), Component(gameObject),
 	CircleColliderComponent(gameObject, 16.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER),
 	textureId(std::move(textureId)), animationLength(animationLength), animationFrameLength(animationFrameLength),
-	lifeInSeconds(lifeInSeconds)
+	lifeInSeconds(lifeInSeconds), speed(speed)
 {
 }
 
@@ -60,6 +60,8 @@ void BaseBuff::Init()
 
 void BaseBuff::LateUpdate()
 {
+	gameObject->transform.AddPosition(glm::vec2(0.0f, speed * Time::GetDeltaTime()));
+
 	lifeInSeconds -= Time::GetDeltaTime();
 	if (lifeInSeconds <= 0.0f)
 	{

@@ -17,13 +17,15 @@ protected:
 	const int animationLength;
 	const float animationFrameLength;
 	float lifeInSeconds;
+	float speed;
 
 	BaseBuff(
 		Learning2DEngine::System::GameObject* gameObject,
 		std::string&& textureId,
 		float lifeInSeconds,
 		int animationLength,
-		float animationFrameLength = 0.1f
+		float animationFrameLength = 0.1f,
+		float speed = 25.0f
 	);
 
 	void Init() override;
