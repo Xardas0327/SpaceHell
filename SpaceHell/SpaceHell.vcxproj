@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="BackgroundController.cpp" />
     <ClCompile Include="Buff\BaseBuff.cpp" />
+    <ClCompile Include="Buff\BuffSpawner.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="BackgroundController.h" />
     <ClInclude Include="Buff\BaseBuff.h" />
+    <ClInclude Include="Buff\BuffSpawner.h" />
     <ClInclude Include="Buff\SpeedBuff.h" />
     <ClInclude Include="Buff\WeaponBuff.h" />
     <ClInclude Include="Bullet.h" />

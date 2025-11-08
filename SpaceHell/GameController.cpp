@@ -14,7 +14,7 @@ using namespace Learning2DEngine::Object;
 using namespace Learning2DEngine::UI;
 
 GameController::GameController(GameObject* gameObject)
-	: UpdaterComponent(gameObject), Component(gameObject), player(nullptr), backgroundController(nullptr),
+    : UpdaterComponent(gameObject), Component(gameObject), player(nullptr), backgroundController(nullptr),
     gameFont("Assets/Fonts/ViperSpikes.ttf", 24), fpsFont("Assets/Fonts/arial.ttf", 24)
 {
 
@@ -22,7 +22,7 @@ GameController::GameController(GameObject* gameObject)
 
 void GameController::Init()
 {
-	UpdaterComponent::Init();
+    UpdaterComponent::Init();
 
     //FPS
     FpsShower::CreateFpsShowerObject(
@@ -39,11 +39,11 @@ void GameController::Init()
             Game::mainCamera.GetResolution().GetHeight() - 100.0f
         )
     );
-	player->SetFrozen(false);
+    player->SetFrozen(false);
 
     //Background
-	backgroundController = BackgroundController::Create(Game::mainCamera.GetResolution().ToVec2());
-	backgroundController->Start();
+    backgroundController = BackgroundController::Create(Game::mainCamera.GetResolution().ToVec2());
+    backgroundController->Start();
 }
 
 void GameController::Update()
