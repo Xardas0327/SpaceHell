@@ -33,6 +33,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Buff\BaseBuff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceHell.h">
@@ -48,6 +51,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff\BaseBuff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff\ShieldBuff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff\WeaponBuff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff\SpeedBuff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -69,6 +84,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Images\Weapon\Bullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Buff\Shield.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Buff\Speed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Buff\Weapon.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
