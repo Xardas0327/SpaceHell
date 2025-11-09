@@ -9,7 +9,7 @@ class ShieldBuff : public BaseBuff
 	friend class Learning2DEngine::System::GameObject;
 protected:
 	ShieldBuff(Learning2DEngine::System::GameObject* gameObject)
-		: BaseBuff(gameObject, "ShieldBuff", SHIELD_BUFF_LIFE_TIME, 15), Learning2DEngine::System::Component(gameObject)
+		: BaseBuff(gameObject, "ShieldBuff", BuffType::Shield, SHIELD_BUFF_LIFE_TIME, 15), Learning2DEngine::System::Component(gameObject)
 	{
 
 	}

@@ -5,8 +5,11 @@
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/Physics/CircleColliderComponent.h>
 #include <Learning2DEngine/System/LateUpdaterComponent.h>
+#include <Learning2DEngine/EventSystem/EventHandler.h>
 
 #include "../PlayerController.h"
+
+#include "BuffType.h"
 
 class BaseBuff : public Learning2DEngine::System::LateUpdaterComponent,
 					public Learning2DEngine::Physics::CircleColliderComponent
@@ -18,10 +21,12 @@ protected:
 	const float animationFrameLength;
 	float lifeInSeconds;
 	float speed;
+	BuffType buffType;
 
 	BaseBuff(
 		Learning2DEngine::System::GameObject* gameObject,
 		std::string&& textureId,
+		BuffType buffType,
 		float lifeInSeconds,
 		int animationLength,
 		float animationFrameLength = 0.1f,
@@ -35,5 +40,7 @@ protected:
 	virtual void OnCollision(const Learning2DEngine::Physics::Collision& collision) override;
 
 	virtual void BuffPlayer(PlayerController* player) = 0;
+public:
+	Learning2DEngine::EventSystem::EventHandler<BuffType> Activated;
 };
 

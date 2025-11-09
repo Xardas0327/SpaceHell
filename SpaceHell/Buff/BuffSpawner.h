@@ -4,15 +4,10 @@
 #include <glm/glm.hpp>
 
 #include <Learning2DEngine/System/Singleton.h>
+#include <Learning2DEngine/EventSystem/EventItem.h>
 
 #include "BaseBuff.h"
-
-enum class BuffType
-{
-	Shield,
-	Speed,
-	Weapon
-};
+#include "BuffType.h"
 
 // -1 means no limit
 const std::map<BuffType, int> BUFF_LIMITS = {
@@ -21,14 +16,16 @@ const std::map<BuffType, int> BUFF_LIMITS = {
 	{ BuffType::Weapon, 3 }
 };
 
-
-class BuffSpawner final : public Learning2DEngine::System::Singleton<BuffSpawner>
+class BuffSpawner final : public Learning2DEngine::System::Singleton<BuffSpawner>,
+							public Learning2DEngine::EventSystem::EventItem<BuffType>
 {
 	friend class Learning2DEngine::System::Singleton<BuffSpawner>;
 private:
 	std::map<BuffType, int> limits;
 
 	BuffSpawner();
+
+	void Call(BuffType activatedItem) override;
 public:
 	void ResetLimits();
 

@@ -14,6 +14,12 @@ BuffSpawner::BuffSpawner()
 {
 }
 
+void BuffSpawner::Call(BuffType activatedItem)
+{
+	if (limits[activatedItem] > 0)
+		--limits[activatedItem];
+}
+
 void BuffSpawner::ResetLimits()
 {
 	limits = BUFF_LIMITS;
@@ -39,18 +45,25 @@ BaseBuff* BuffSpawner::SpawnBuff(const glm::vec2& position, int percentage)
 
 	int index = Random::GetNumber(0, static_cast<int>(availableBuffs.size()));
 
-	if(limits[availableBuffs[index]] > 0)
-		--limits[availableBuffs[index]];
+	BaseBuff* buff = nullptr;
 
 	switch (availableBuffs[index])
 	{
 	case BuffType::Shield:
-		return ShieldBuff::Create(position);
+		buff = ShieldBuff::Create(position);
+		break;
 	case BuffType::Speed:
-		return SpeedBuff::Create(position);
+		buff = SpeedBuff::Create(position);
+		break;
 	case BuffType::Weapon:
-		return WeaponBuff::Create(position);
+		buff = WeaponBuff::Create(position);
+		break;
 	default:
 		break;
 	}
+
+	if(buff != nullptr)
+		buff->Activated.Add(this);
+
+	return buff;
 }

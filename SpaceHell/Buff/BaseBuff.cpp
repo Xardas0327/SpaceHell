@@ -10,11 +10,19 @@ using namespace Learning2DEngine::Physics;
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 
-BaseBuff::BaseBuff(GameObject* gameObject, std::string&& textureId, float lifeInSeconds, int animationLength, float animationFrameLength, float speed)
+BaseBuff::BaseBuff(
+	GameObject* gameObject,
+	std::string&& textureId,
+	BuffType buffType,
+	float lifeInSeconds,
+	int animationLength,
+	float animationFrameLength,
+	float speed
+)
 	: LateUpdaterComponent(gameObject), Component(gameObject),
 	CircleColliderComponent(gameObject, 16.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER),
 	textureId(std::move(textureId)), animationLength(animationLength), animationFrameLength(animationFrameLength),
-	lifeInSeconds(lifeInSeconds), speed(speed)
+	lifeInSeconds(lifeInSeconds), speed(speed), buffType(buffType)
 {
 }
 
@@ -81,6 +89,7 @@ void BaseBuff::OnCollision(const Collision& collision)
 	if (player != nullptr)
 	{
 		BuffPlayer(player);
+		Activated.Invoke(buffType);
 		GameObjectManager::GetInstance().DestroyGameObject(gameObject);
 	}
 }

@@ -9,7 +9,7 @@ class SpeedBuff : public BaseBuff
 	friend class Learning2DEngine::System::GameObject;
 protected:
 	SpeedBuff(Learning2DEngine::System::GameObject* gameObject)
-		: BaseBuff(gameObject, "SpeedBuff", SPEED_BUFF_LIFE_TIME, 4), Learning2DEngine::System::Component(gameObject)
+		: BaseBuff(gameObject, "SpeedBuff", BuffType::Speed, SPEED_BUFF_LIFE_TIME, 4), Learning2DEngine::System::Component(gameObject)
 	{
 
 	}
