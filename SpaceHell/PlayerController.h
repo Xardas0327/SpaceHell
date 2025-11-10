@@ -18,6 +18,8 @@ constexpr int PLAYER_BULLET_SPEED = 500;
 constexpr float PLAYER_BULLET_RELOAD = 1.0f;
 constexpr int PLAYER_BULLET_DEFAULT_NUMBER = 1;
 constexpr int PLAYER_DEFAULT_LIFE = 4;
+constexpr float PLAYER_IMMORTAL_AFTER_HIT = 0.5f;
+constexpr int32_t PLAYER_COLLER_MASK = 0B110;
 
 class PlayerController : public Learning2DEngine::System::UpdaterComponent,
                             public Learning2DEngine::Physics::CircleColliderComponent
@@ -32,21 +34,25 @@ protected:
     int maxBulletNumber;
     int life;
     float speed;
+    bool isImmortal;
+    float immortalTimer;
 
     PlayerController(Learning2DEngine::System::GameObject* gameObject);
 
     void Init() override;
     void Update() override;
     void Destroy() override;
+    void OnCollision(const Learning2DEngine::Physics::Collision& collision) override;
 
     void CheckKeyboard();
     void RefreshShieldPosition();
     void Reload();
+    void RefreshImmortal();
     void Shoot();
 public:
     void Reset(glm::vec2 position);
 	void SetFrozen(bool frozen);
-    void Hit();
+    void Hit(int damage = 1);
 
     void ResetLife();
 	void RefreshLifeShield();

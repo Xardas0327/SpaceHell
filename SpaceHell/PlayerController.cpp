@@ -6,6 +6,7 @@
 #include <Learning2DEngine/System/Time.h>
 
 #include "Bullet.h"
+#include "Enemy/BaseEnemy.h"
 
 using namespace Learning2DEngine::Animator;
 using namespace Learning2DEngine::Physics;
@@ -13,37 +14,36 @@ using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 
 PlayerController::PlayerController(GameObject* gameObject)
-	: UpdaterComponent(gameObject), Component(gameObject),
-    CircleColliderComponent(gameObject, PLAYER_SIZE.x / 2.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER, PLAYER_COllIDER_OFFSET),
-	shieldSprite(nullptr), shieldAnimation(nullptr),
-	isFrozen(true), reloadTimer(0.0f), bulletNumber(PLAYER_BULLET_DEFAULT_NUMBER), maxBulletNumber(PLAYER_BULLET_DEFAULT_NUMBER),
-	life(PLAYER_DEFAULT_LIFE), speed(PLAYER_DEFAULT_SPEED)
+    : UpdaterComponent(gameObject), Component(gameObject),
+    CircleColliderComponent(gameObject, PLAYER_SIZE.x / 2.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER, PLAYER_COllIDER_OFFSET, PLAYER_COLLER_MASK),
+    shieldSprite(nullptr), shieldAnimation(nullptr),
+    isFrozen(true), reloadTimer(0.0f), bulletNumber(PLAYER_BULLET_DEFAULT_NUMBER), maxBulletNumber(PLAYER_BULLET_DEFAULT_NUMBER),
+    life(PLAYER_DEFAULT_LIFE), speed(PLAYER_DEFAULT_SPEED), isImmortal(false), immortalTimer(0.0f)
 {
-	
+
 }
 
 void PlayerController::Init()
 {
-	UpdaterComponent::Init();
+    UpdaterComponent::Init();
     CircleColliderComponent::Init();
 
-	gameObject->transform.SetScale(PLAYER_SIZE);
+    gameObject->transform.SetScale(PLAYER_SIZE);
 
-	gameObject->AddComponent<SpriteRenderComponent>(
-		RendererMode::RENDER,
-		ResourceManager::GetInstance().GetTexture("Player"),
-        0
-	);
+    gameObject->AddComponent<SpriteRenderComponent>(
+        RendererMode::RENDER,
+        ResourceManager::GetInstance().GetTexture("Player")
+    );
 
     //Shield
     auto shieldGO = GameObjectManager::GetInstance().CreateGameObject(
         Transform(
             gameObject->transform.GetPosition() + PLAYER_SHIELD_OFFSET,
             PLAYER_SHIELD_SIZE
-		)
+        )
     );
 
-	auto& shieldTexture = ResourceManager::GetInstance().GetTexture("PlayerShield");
+    auto& shieldTexture = ResourceManager::GetInstance().GetTexture("PlayerShield");
     shieldSprite = shieldGO->AddComponent<SpriteRenderComponent>(
         RendererMode::RENDER,
         shieldTexture,
@@ -74,12 +74,23 @@ void PlayerController::Update()
     CheckKeyboard();
     RefreshShieldPosition();
     Reload();
+    RefreshImmortal();
 }
 
 void PlayerController::Destroy()
 {
     CircleColliderComponent::Destroy();
     UpdaterComponent::Destroy();
+}
+
+void PlayerController::OnCollision(const Collision& collision)
+{
+    auto enemy = collision.collidedObject->GetComponent<BaseEnemy>();
+    if (enemy != nullptr)
+    {
+        Hit(enemy->GetLife());
+        enemy->Hit(enemy->GetLife());
+    }
 }
 
 void PlayerController::CheckKeyboard()
@@ -119,7 +130,7 @@ void PlayerController::CheckKeyboard()
             gameObject->transform.SetPosition(glm::vec2(gameObject->transform.GetPosition().x, Game::mainCamera.GetResolution().GetHeight() - PLAYER_SIZE.y));
     }
 
-    if(Game::GetKeyboardButtonStatus(GLFW_KEY_SPACE) == InputStatus::KEY_DOWN)
+    if (Game::GetKeyboardButtonStatus(GLFW_KEY_SPACE) == InputStatus::KEY_DOWN)
         Shoot();
 }
 
@@ -127,7 +138,7 @@ void PlayerController::RefreshShieldPosition()
 {
     shieldSprite->gameObject->transform.SetPosition(
         gameObject->transform.GetPosition() + PLAYER_SHIELD_OFFSET
-	);
+    );
 }
 
 void PlayerController::Reload()
@@ -135,11 +146,24 @@ void PlayerController::Reload()
     if (bulletNumber < maxBulletNumber)
     {
         reloadTimer += Time::GetDeltaTime();
-        if(reloadTimer >= (PLAYER_BULLET_RELOAD / maxBulletNumber))
+        if (reloadTimer >= (PLAYER_BULLET_RELOAD / maxBulletNumber))
         {
             ++bulletNumber;
             reloadTimer = 0.0f;
-		}
+        }
+    }
+}
+
+void PlayerController::RefreshImmortal()
+{
+    if (isImmortal)
+    {
+        immortalTimer += Time::GetDeltaTime();
+        if (immortalTimer >= PLAYER_IMMORTAL_AFTER_HIT)
+        {
+            isImmortal = false;
+            immortalTimer = 0.0f;
+        }
     }
 }
 
@@ -150,31 +174,36 @@ void PlayerController::Shoot()
         Bullet::Create(
             gameObject->transform.GetPosition() + glm::vec2(gameObject->transform.GetScale().x / 2.0f - BULLET_SIZE.x / 2.0f, 0.0f),
             glm::vec2(0.0f, -1.0f),
-            PLAYER_BULLET_SPEED
+            PLAYER_BULLET_SPEED,
+            PLAYER_BULLET_MASK
         );
 
-		--bulletNumber;
+        --bulletNumber;
     }
 }
 
 void PlayerController::Reset(glm::vec2 position)
 {
-	gameObject->transform.SetPosition(position);
-	speed = PLAYER_DEFAULT_SPEED;
-	bulletNumber = PLAYER_BULLET_DEFAULT_NUMBER;
-	maxBulletNumber = PLAYER_BULLET_DEFAULT_NUMBER;
+    gameObject->transform.SetPosition(position);
+    speed = PLAYER_DEFAULT_SPEED;
+    bulletNumber = PLAYER_BULLET_DEFAULT_NUMBER;
+    maxBulletNumber = PLAYER_BULLET_DEFAULT_NUMBER;
     ResetLife();
 }
 
 void PlayerController::SetFrozen(bool frozen)
 {
-	isFrozen = frozen;
+    isFrozen = frozen;
 }
 
-void PlayerController::Hit()
+void PlayerController::Hit(int damage)
 {
-    --life;
-	RefreshLifeShield();
+    if (isImmortal)
+        return;
+
+    life -= damage;
+    isImmortal = true;
+    RefreshLifeShield();
 }
 
 void PlayerController::ResetLife()
@@ -182,6 +211,7 @@ void PlayerController::ResetLife()
     life = PLAYER_DEFAULT_LIFE;
     RefreshLifeShield();
 }
+
 void PlayerController::RefreshLifeShield()
 {
     shieldSprite->isActive = life > 1;
@@ -193,7 +223,7 @@ void PlayerController::IncreaseMaxBulletNumber(int increase)
     maxBulletNumber += increase;
     bulletNumber += increase;
     if (bulletNumber > maxBulletNumber)
-		bulletNumber = maxBulletNumber;
+        bulletNumber = maxBulletNumber;
 }
 
 void PlayerController::IncreaseSpeed(float increase)

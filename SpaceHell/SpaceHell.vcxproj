@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundController.cpp" />
+    <ClCompile Include="Enemy\FighterEnemy.cpp" />
     <ClCompile Include="Buff\BaseBuff.cpp" />
     <ClCompile Include="Buff\BuffSpawner.cpp" />
     <ClCompile Include="Bullet.cpp" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundController.h" />
+    <ClInclude Include="Enemy\FighterEnemy.h" />
     <ClInclude Include="Buff\BaseBuff.h" />
     <ClInclude Include="Buff\BuffSpawner.h" />
     <ClInclude Include="Buff\BuffType.h" />
@@ -194,6 +196,7 @@
     <Image Include="Assets\Images\Buff\Shield.png" />
     <Image Include="Assets\Images\Buff\Speed.png" />
     <Image Include="Assets\Images\Buff\Weapon.png" />
+    <Image Include="Assets\Images\Enemy\Fighter.png" />
     <Image Include="Assets\Images\Player\PlayerShip.png" />
     <Image Include="Assets\Images\Player\Shield.png" />
     <Image Include="Assets\Images\Weapon\Bullet.png" />
