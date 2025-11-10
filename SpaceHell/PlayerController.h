@@ -18,14 +18,16 @@ constexpr int PLAYER_BULLET_SPEED = 500;
 constexpr float PLAYER_BULLET_RELOAD = 1.0f;
 constexpr int PLAYER_BULLET_DEFAULT_NUMBER = 1;
 constexpr int PLAYER_DEFAULT_LIFE = 4;
-constexpr float PLAYER_IMMORTAL_AFTER_HIT = 0.5f;
 constexpr int32_t PLAYER_COLLER_MASK = 0B110;
+constexpr float PLAYER_IMMORTAL_AFTER_HIT = 1.0f;
+constexpr float PLAYER_IMMORTAL_VIBRATION_FREQUENCY = 0.2f;
 
 class PlayerController : public Learning2DEngine::System::UpdaterComponent,
                             public Learning2DEngine::Physics::CircleColliderComponent
 {
     friend class Learning2DEngine::System::GameObject;
 protected:
+    Learning2DEngine::Render::SpriteRenderComponent* sprite;
     Learning2DEngine::Render::SpriteRenderComponent* shieldSprite;
     Learning2DEngine::Animator::AnimationController* shieldAnimation;
 	bool isFrozen;

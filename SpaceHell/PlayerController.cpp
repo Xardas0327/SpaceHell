@@ -16,7 +16,7 @@ using namespace Learning2DEngine::Render;
 PlayerController::PlayerController(GameObject* gameObject)
     : UpdaterComponent(gameObject), Component(gameObject),
     CircleColliderComponent(gameObject, PLAYER_SIZE.x / 2.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER, PLAYER_COllIDER_OFFSET, PLAYER_COLLER_MASK),
-    shieldSprite(nullptr), shieldAnimation(nullptr),
+    sprite(nullptr), shieldSprite(nullptr), shieldAnimation(nullptr),
     isFrozen(true), reloadTimer(0.0f), bulletNumber(PLAYER_BULLET_DEFAULT_NUMBER), maxBulletNumber(PLAYER_BULLET_DEFAULT_NUMBER),
     life(PLAYER_DEFAULT_LIFE), speed(PLAYER_DEFAULT_SPEED), isImmortal(false), immortalTimer(0.0f)
 {
@@ -30,7 +30,7 @@ void PlayerController::Init()
 
     gameObject->transform.SetScale(PLAYER_SIZE);
 
-    gameObject->AddComponent<SpriteRenderComponent>(
+    sprite = gameObject->AddComponent<SpriteRenderComponent>(
         RendererMode::RENDER,
         ResourceManager::GetInstance().GetTexture("Player")
     );
@@ -159,9 +159,11 @@ void PlayerController::RefreshImmortal()
     if (isImmortal)
     {
         immortalTimer += Time::GetDeltaTime();
+        sprite->isActive = ((int)(immortalTimer / PLAYER_IMMORTAL_VIBRATION_FREQUENCY) % 2) == 0;
         if (immortalTimer >= PLAYER_IMMORTAL_AFTER_HIT)
         {
             isImmortal = false;
+            sprite->isActive = true;
             immortalTimer = 0.0f;
         }
     }
