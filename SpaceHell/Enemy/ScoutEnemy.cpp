@@ -2,7 +2,6 @@
 
 #include <Learning2DEngine/System/Game.h>
 #include <Learning2DEngine/System/ResourceManager.h>
-#include <Learning2DEngine/System/Time.h>
 #include <Learning2DEngine/Render/SpriteRenderComponent.h>
 #include <Learning2DEngine/Physics/CircleColliderComponent.h>
 
@@ -28,7 +27,7 @@ void ScoutEnemy::Init()
 
 	gameObject->AddComponent<SpriteRenderComponent>(
 		RendererMode::RENDER,
-		ResourceManager::GetInstance().GetTexture("EnemyScout")
+		ResourceManager::GetInstance().GetTexture("ScoutEnemy")
 	);
 
 	gameObject->AddComponent<CircleColliderComponent>(

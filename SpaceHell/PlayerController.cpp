@@ -55,10 +55,10 @@ void PlayerController::Init()
     for (int i = 0; i < PLAYER_SHIELD_NUMBER; ++i)
     {
         auto uvMatrix = glm::mat4x2{
-            i / 12.0f, 0.0f,
-            (i + 1.0f) / 12.0f, 0.0f,
-            (i + 1.0f) / 12.0f, 1.0f,
-            i / 12.0f, 1.0f
+            i / static_cast<float>(PLAYER_SHIELD_NUMBER), 0.0f,
+            (i + 1.0f) / static_cast<float>(PLAYER_SHIELD_NUMBER), 0.0f,
+            (i + 1.0f) / static_cast<float>(PLAYER_SHIELD_NUMBER), 1.0f,
+            i / static_cast<float>(PLAYER_SHIELD_NUMBER), 1.0f
         };
         shieldAnimation->Add(AnimationFrame{
             &shieldTexture,
@@ -89,7 +89,7 @@ void PlayerController::OnCollision(const Collision& collision)
     if (enemy != nullptr)
     {
         Hit(enemy->GetLife());
-        enemy->Hit(enemy->GetLife());
+        enemy->Kill();
     }
 }
 
@@ -217,6 +217,7 @@ void PlayerController::ResetLife()
 void PlayerController::RefreshLifeShield()
 {
     shieldSprite->isActive = life > 1;
+    shieldAnimation->isActive = life > 1;
     shieldSprite->data.color.a = (life - 1) * 0.3f;
 }
 

@@ -25,7 +25,7 @@ void FighterEnemy::Init()
 
 	gameObject->AddComponent<SpriteRenderComponent>(
 		RendererMode::RENDER,
-		ResourceManager::GetInstance().GetTexture("EnemyFighter")
+		ResourceManager::GetInstance().GetTexture("FighterEnemy")
 	);
 
 	gameObject->AddComponent<CircleColliderComponent>(

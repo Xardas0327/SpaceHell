@@ -23,7 +23,10 @@ protected:
 	virtual bool CheckOutOfScreen() = 0;
 
 public:
-	void Hit(int damage = 1);
+	virtual void Hit(int damage = 1);
+
+	//It just destroy the enemy without spawn buff
+	virtual void Kill();
 
 	inline int GetLife() const
 	{

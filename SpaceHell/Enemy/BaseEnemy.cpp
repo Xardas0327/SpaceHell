@@ -27,3 +27,8 @@ void BaseEnemy::Hit(int damage)
 		GameObjectManager::GetInstance().DestroyGameObject(gameObject);
 	}
 }
+
+void BaseEnemy::Kill()
+{
+	GameObjectManager::GetInstance().DestroyGameObject(gameObject);
+}
