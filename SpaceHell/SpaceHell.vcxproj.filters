@@ -45,6 +45,9 @@
     <ClCompile Include="Enemy\FighterEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy\ScoutEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceHell.h">
@@ -86,6 +89,9 @@
     <ClInclude Include="Enemy\FighterEnemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy\ScoutEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\Viper.ttf" />
@@ -117,6 +123,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Images\Enemy\Fighter.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Enemy\Scout.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

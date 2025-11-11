@@ -24,7 +24,7 @@ protected:
 	void Init() override;
 	void Update() override;
 
-	bool CheckOutOfScreen();
+	bool CheckOutOfScreen() override;
 	void Shoot();
 	void Reload();
 

@@ -20,6 +20,7 @@ protected:
 	BaseEnemy(Learning2DEngine::System::GameObject* gameObject, glm::vec2 direction, float speed, int life, int buffSpawnPercentage);
 
 	void Move();
+	virtual bool CheckOutOfScreen() = 0;
 
 public:
 	void Hit(int damage = 1);

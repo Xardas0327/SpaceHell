@@ -164,6 +164,7 @@
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="Enemy\ScoutEnemy.cpp" />
     <ClCompile Include="SpaceHell.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +180,7 @@
     <ClInclude Include="GameController.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="Buff\ShieldBuff.h" />
+    <ClInclude Include="Enemy\ScoutEnemy.h" />
     <ClInclude Include="SpaceHell.h" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +199,7 @@
     <Image Include="Assets\Images\Buff\Speed.png" />
     <Image Include="Assets\Images\Buff\Weapon.png" />
     <Image Include="Assets\Images\Enemy\Fighter.png" />
+    <Image Include="Assets\Images\Enemy\Scout.png" />
     <Image Include="Assets\Images\Player\PlayerShip.png" />
     <Image Include="Assets\Images\Player\Shield.png" />
     <Image Include="Assets\Images\Weapon\Bullet.png" />
