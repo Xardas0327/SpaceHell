@@ -174,10 +174,14 @@ void PlayerController::Shoot()
     if (bulletNumber)
     {
         Bullet::Create(
-            gameObject->transform.GetPosition() + glm::vec2(gameObject->transform.GetScale().x / 2.0f - BULLET_SIZE.x / 2.0f, 0.0f),
+            gameObject->transform.GetPosition() + glm::vec2(gameObject->transform.GetScale().x / 2.0f - PLAYER_BULLET_SIZE.x / 2.0f, 0.0f),
+            PLAYER_BULLET_SIZE,
+            0.0f,
+            "PlayerBullet",
             glm::vec2(0.0f, -1.0f),
             PLAYER_BULLET_SPEED,
-            PLAYER_BULLET_MASK
+            PLAYER_BULLET_MASK,
+            1
         );
 
         --bulletNumber;

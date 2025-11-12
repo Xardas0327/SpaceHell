@@ -27,7 +27,11 @@ void SpaceHell::Init()
     resourceManager.LoadTextureFromFile("Player", "Assets/Images/Player/PlayerShip.png", Texture2DSettings(true));
     resourceManager.LoadTextureFromFile("PlayerShield", "Assets/Images/Player/Shield.png", Texture2DSettings(true));
 
-    resourceManager.LoadTextureFromFile("Bullet", "Assets/Images/Weapon/Bullet.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("EnemyBullet", "Assets/Images/Weapon/EnemyBullet.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("PlayerBullet", "Assets/Images/Weapon/PlayerBullet.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Ray", "Assets/Images/Weapon/Ray.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("SpinningBullet", "Assets/Images/Weapon/SpinningBullet.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Wave", "Assets/Images/Weapon/Wave.png", Texture2DSettings(true));
 
     resourceManager.LoadTextureFromFile("ShieldBuff", "Assets/Images/Buff/Shield.png", Texture2DSettings(true));
     resourceManager.LoadTextureFromFile("SpeedBuff", "Assets/Images/Buff/Speed.png", Texture2DSettings(true));

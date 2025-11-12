@@ -202,6 +202,7 @@
     <Image Include="Assets\Images\Buff\Shield.png" />
     <Image Include="Assets\Images\Buff\Speed.png" />
     <Image Include="Assets\Images\Buff\Weapon.png" />
+    <Image Include="Assets\Images\Enemy\Boss.png" />
     <Image Include="Assets\Images\Enemy\Disk.png" />
     <Image Include="Assets\Images\Enemy\Fighter.png" />
     <Image Include="Assets\Images\Enemy\Scout.png" />
@@ -209,7 +210,11 @@
     <Image Include="Assets\Images\Enemy\SpeedyShield.png" />
     <Image Include="Assets\Images\Player\PlayerShip.png" />
     <Image Include="Assets\Images\Player\Shield.png" />
-    <Image Include="Assets\Images\Weapon\Bullet.png" />
+    <Image Include="Assets\Images\Weapon\EnemyBullet.png" />
+    <Image Include="Assets\Images\Weapon\PlayerBullet.png" />
+    <Image Include="Assets\Images\Weapon\Ray.png" />
+    <Image Include="Assets\Images\Weapon\SpinningBullet.png" />
+    <Image Include="Assets\Images\Weapon\Wave.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

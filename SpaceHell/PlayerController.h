@@ -15,6 +15,7 @@ constexpr glm::vec2 PLAYER_SHIELD_OFFSET(-16.0f, -10.0f);
 constexpr glm::vec2 PLAYER_COllIDER_OFFSET(0.0f, 5.0f);
 constexpr int PLAYER_SHIELD_NUMBER = 12;
 constexpr int PLAYER_BULLET_SPEED = 500;
+constexpr glm::vec2 PLAYER_BULLET_SIZE(12.0f, 12.0f);
 constexpr float PLAYER_BULLET_RELOAD = 1.0f;
 constexpr int PLAYER_BULLET_DEFAULT_NUMBER = 1;
 constexpr int PLAYER_DEFAULT_LIFE = 4;

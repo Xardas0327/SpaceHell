@@ -63,10 +63,15 @@ void FighterEnemy::Shoot()
 		if (Random::GetNumber(0, 100) < FIGHTER_BULLET_PERCENTAGE)
 		{
 			Bullet::Create(
-				gameObject->transform.GetPosition() + glm::vec2(gameObject->transform.GetScale().x / 2.0f - BULLET_SIZE.x / 2.0f, gameObject->transform.GetScale().y),
+				gameObject->transform.GetPosition() + glm::vec2(gameObject->transform.GetScale().x / 2.0f - FIGHTER_BULLET_SIZE.x / 2.0f, gameObject->transform.GetScale().y),
+				FIGHTER_BULLET_SIZE,
+				180.0f,
+				"EnemyBullet",
 				glm::vec2(0.0f, 1.0f),
 				FIGHTER_BULLET_SPEED,
-				ENEMY_BULLET_MASK
+				ENEMY_BULLET_MASK,
+				8,
+				0.1f
 			);
 		}
 	}
