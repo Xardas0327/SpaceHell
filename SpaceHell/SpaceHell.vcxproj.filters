@@ -51,6 +51,9 @@
     <ClCompile Include="Enemy\SpeedyEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy\DiskEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceHell.h">
@@ -98,6 +101,9 @@
     <ClInclude Include="Enemy\SpeedyEnemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy\DiskEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\Viper.ttf" />
@@ -138,6 +144,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Images\Enemy\Speedy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Enemy\Disk.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
