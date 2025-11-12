@@ -1,10 +1,10 @@
 #pragma once
 
-#include "BaseEnemy.h"
-
 #include <Learning2DEngine/Animator/AnimationController.h>
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/Render/SpriteRenderComponent.h>
+
+#include "BaseEnemy.h"
 
 constexpr glm::vec2 SPEEDY_SIZE(64.0f, 64.0f);
 constexpr float SPEEDY_SPEED = 425.0f;

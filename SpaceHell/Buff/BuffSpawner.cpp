@@ -27,6 +27,9 @@ void BuffSpawner::ResetLimits()
 
 BaseBuff* BuffSpawner::SpawnBuff(const glm::vec2& position, int percentage)
 {
+	if(percentage <= 0)
+		return nullptr;
+
 	int number = Random::GetNumber(0, 100);
 	if(number >= percentage)
 		return nullptr;

@@ -37,6 +37,7 @@ void SpaceHell::Init()
     resourceManager.LoadTextureFromFile("ScoutEnemy", "Assets/Images/Enemy/Scout.png", Texture2DSettings(true));
     resourceManager.LoadTextureFromFile("SpeedyEnemy", "Assets/Images/Enemy/Speedy.png", Texture2DSettings(true));
     resourceManager.LoadTextureFromFile("SpeedyEnemyShield", "Assets/Images/Enemy/SpeedyShield.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("DiskEnemy", "Assets/Images/Enemy/Disk.png", Texture2DSettings(true));
 
     //GameController
     auto gameController = GameObjectManager::GetInstance().CreateGameObject();
