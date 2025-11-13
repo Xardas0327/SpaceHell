@@ -5,7 +5,6 @@
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/System/UpdaterComponent.h>
 
-
 constexpr int32_t ENEMY_COLLER_MASK = 0B101;
 
 class BaseEnemy : public Learning2DEngine::System::UpdaterComponent

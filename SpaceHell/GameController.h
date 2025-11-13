@@ -9,6 +9,7 @@
 
 #include "BackgroundController.h"
 #include "PlayerController.h"
+#include "Enemy/EnemySpawner.h"
 
 enum class GameStatus { Menu, Play, Ended };
 
@@ -19,6 +20,7 @@ protected:
     Learning2DEngine::Object::FpsShower* fpsShower;
     PlayerController* player;
     BackgroundController* backgroundController;
+    EnemySpawner* enemySpawner;
     const Learning2DEngine::UI::FontSizePair fpsFont;
 
     GameController(Learning2DEngine::System::GameObject* gameObject);

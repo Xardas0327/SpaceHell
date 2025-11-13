@@ -27,6 +27,8 @@ private:
 
 	void Call(BuffType activatedItem) override;
 public:
+	~BuffSpawner() = default;
+
 	void ResetLimits();
 
 	//The percentage should be from 1 to 100

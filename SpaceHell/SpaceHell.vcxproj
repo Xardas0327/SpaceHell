@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundController.cpp" />
+    <ClCompile Include="Enemy\EnemySpawner.cpp" />
     <ClCompile Include="Enemy\DiskEnemy.cpp" />
     <ClCompile Include="Enemy\FighterEnemy.cpp" />
     <ClCompile Include="Buff\BaseBuff.cpp" />
@@ -171,7 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundController.h" />
+    <ClInclude Include="Enemy\EnemySpawner.h" />
     <ClInclude Include="Enemy\DiskEnemy.h" />
+    <ClInclude Include="Enemy\EnemySpawnerItem.h" />
     <ClInclude Include="Enemy\FighterEnemy.h" />
     <ClInclude Include="Buff\BaseBuff.h" />
     <ClInclude Include="Buff\BuffSpawner.h" />
