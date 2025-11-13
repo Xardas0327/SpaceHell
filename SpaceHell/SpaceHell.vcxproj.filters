@@ -39,6 +39,21 @@
     <ClCompile Include="Buff\BuffSpawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy\BaseEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\FighterEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\ScoutEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\SpeedyEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\DiskEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceHell.h">
@@ -71,6 +86,24 @@
     <ClInclude Include="Buff\BuffSpawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy\BaseEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff\BuffType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\FighterEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\ScoutEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\SpeedyEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\DiskEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\Viper.ttf" />
@@ -89,7 +122,7 @@
     <Image Include="Assets\Images\Player\Shield.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Images\Weapon\Bullet.png">
+    <Image Include="Assets\Images\Weapon\PlayerBullet.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Images\Buff\Shield.png">
@@ -99,6 +132,36 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Images\Buff\Weapon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Enemy\Fighter.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Enemy\Scout.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Enemy\SpeedyShield.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Enemy\Speedy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Enemy\Disk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Weapon\Wave.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Weapon\SpinningBullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Weapon\Ray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Weapon\EnemyBullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Enemy\Boss.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
