@@ -30,5 +30,5 @@ protected:
 	bool Load();
 
 public:
-	static DiskEnemy* Create(const glm::vec2& position, float loadTime);
+	static DiskEnemy* Create(const glm::vec2& position, float loadTime = 2.0f);
 };
