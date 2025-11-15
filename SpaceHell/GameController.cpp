@@ -244,5 +244,9 @@ void GameController::RefreshScore()
 
 void GameController::RefreshWaves()
 {
-    waveText->data.SetText("Waves: " + std::to_string(waveNumber) + "/10");
+	std::string waveStr = std::to_string(waveNumber);
+    if (waveNumber > WAVE_COUNT)
+        waveStr += "?";
+
+    waveText->data.SetText("Waves: " + waveStr + "/" + std::to_string(WAVE_COUNT));
 }

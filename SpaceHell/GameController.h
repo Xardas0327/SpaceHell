@@ -17,7 +17,7 @@
 
 enum class GameStatus { Menu, Play, Ended };
 
-constexpr float TIME_BETWEEN_WAVES = 3.0f;
+constexpr float TIME_BETWEEN_WAVES = 5.0f;
 constexpr int WAVE_COUNT = 10;
 
 class GameController : public Learning2DEngine::System::UpdaterComponent,
