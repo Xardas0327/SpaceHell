@@ -15,7 +15,8 @@ ScoutEnemy::ScoutEnemy(GameObject* gameObject, ScoutState state)
 		glm::vec2(state == ScoutState::MOVING_RIGHT ? 1.0f : -1.0f, 0.0f),
 		SCOUT_SPEED,
 		SCOUT_LIFE,
-		SCOUT_BUFF_SPAWN
+		SCOUT_BUFF_SPAWN,
+		SCOUT_POINT
 	),
 	Component(gameObject)
 {

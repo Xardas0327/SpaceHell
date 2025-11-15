@@ -8,6 +8,7 @@ constexpr glm::vec2 SCOUT_SIZE(64.0f, 64.0f);
 constexpr float SCOUT_SPEED = 300.0f;
 constexpr int SCOUT_LIFE = 1;
 constexpr int SCOUT_BUFF_SPAWN = 30;
+constexpr int SCOUT_POINT = 20;
 
 enum class ScoutState
 {

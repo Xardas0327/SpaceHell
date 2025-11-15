@@ -20,7 +20,8 @@ DiskEnemy::DiskEnemy(GameObject* gameObject, float loadTime)
 			? DISK_MOVE_LEFT : DISK_MOVE_RIGHT,
 		DISK_SPEED,
 		DISK_LIFE,
-		DISK_BUFF_SPAWN
+		DISK_BUFF_SPAWN,
+		DISK_POINT
 	), Component(gameObject), loadTime(loadTime)
 {
 }

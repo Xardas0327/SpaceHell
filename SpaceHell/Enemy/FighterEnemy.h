@@ -12,6 +12,7 @@ constexpr float FIGHTER_BULLET_RELOAD = 1.0f; // it will used even the enemy did
 constexpr glm::vec2 FIGHTER_BULLET_SIZE(24.0f, 24.0f);
 constexpr int FIGHTER_BULLET_SPEED = 500;
 constexpr int FIGHTER_BULLET_PERCENTAGE = 30;
+constexpr int FIGHTER_POINT = 10;
 
 class FighterEnemy : public BaseEnemy
 {

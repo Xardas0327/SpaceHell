@@ -7,10 +7,18 @@
 
 using namespace Learning2DEngine::System;
 
-BaseEnemy::BaseEnemy(GameObject* gameObject, glm::vec2 direction, float speed, int life, int buffSpawnPercentage)
+BaseEnemy::BaseEnemy(GameObject* gameObject, glm::vec2 direction, float speed, int life, int buffSpawnPercentage, int point)
 	: UpdaterComponent(gameObject), Component(gameObject),
-	direction(direction), speed(speed), life(life), buffSpawnPercentage(buffSpawnPercentage)
+	direction(direction), speed(speed), life(life), buffSpawnPercentage(buffSpawnPercentage), point(point)
 {
+}
+
+void BaseEnemy::Destroy()
+{
+	onDestroy.Invoke(this);
+	onKilled.Clear();
+	onDestroy.Clear();
+	UpdaterComponent::Destroy();
 }
 
 void BaseEnemy::Move()
@@ -23,6 +31,7 @@ void BaseEnemy::Hit(int damage)
 	life -= damage;
 	if (life <= 0)
 	{
+		onKilled.Invoke(point);
 		BuffSpawner::GetInstance().SpawnBuff(gameObject->transform.GetPosition(), buffSpawnPercentage);
 		GameObjectManager::GetInstance().DestroyGameObject(gameObject);
 	}

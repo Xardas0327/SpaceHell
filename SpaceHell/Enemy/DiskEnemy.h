@@ -11,6 +11,7 @@ constexpr int DISK_BUFF_SPAWN = 50;
 constexpr int DISK_ANIMATION_NUMBER = 8;
 constexpr glm::vec2 DISK_MOVE_LEFT(-1.0f, 0.5f);
 constexpr glm::vec2 DISK_MOVE_RIGHT(1.0f, 0.5f);
+constexpr int DISK_POINT = 50;
 
 class DiskEnemy : public BaseEnemy
 {

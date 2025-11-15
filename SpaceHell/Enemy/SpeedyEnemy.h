@@ -13,6 +13,7 @@ constexpr int SPEEDY_BUFF_SPAWN = 50;
 constexpr int SPEEDY_SHIELD_NUMBER = 10;
 constexpr glm::vec2 SPEEDY_SHIELD_OFFSET(-16.0f, -10.0f);
 constexpr glm::vec2 SPEEDY_SHIELD_SIZE(96.0f, 96.0f);
+constexpr int SPEEDY_POINT = 50;
 
 class SpeedyEnemy : public BaseEnemy
 {

@@ -113,6 +113,18 @@
     <ClInclude Include="Enemy\EnemySpawnerItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy\EnemyDestroyEventItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\IEnemyDestroyMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\IEnemyKilledByPlayerMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\EnemyKilledByPlayerEvenItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\Viper.ttf" />

@@ -14,7 +14,7 @@ using namespace Learning2DEngine::Render;
 using namespace Learning2DEngine::Physics;
 
 FighterEnemy::FighterEnemy(GameObject* gameObject)
-	: BaseEnemy(gameObject, glm::vec2(0.0f, 1.0f), FIGHTER_SPEED, FIGHTER_LIFE, FIGHTER_BUFF_SPAWN), Component(gameObject),
+	: BaseEnemy(gameObject, glm::vec2(0.0f, 1.0f), FIGHTER_SPEED, FIGHTER_LIFE, FIGHTER_BUFF_SPAWN, FIGHTER_POINT), Component(gameObject),
 	canShoot(true), reloadTimer(0.0f)
 {
 }

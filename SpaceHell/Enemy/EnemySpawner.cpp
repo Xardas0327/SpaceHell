@@ -7,7 +7,8 @@ using namespace Learning2DEngine::System;
 
 EnemySpawner::EnemySpawner(GameObject* gameObject)
 	: UpdaterComponent(gameObject), Component(gameObject),
-	  enemies(), spawnedEnemy(), isRunning(false), currentEnemyIndex(0), timer(0.0f)
+	enemies(), spawnedEnemy(), isRunning(false), currentEnemyIndex(0), timer(0.0f), waveEnemyNumber(0),
+	enemyDestroyEventItem(this), enemyKilledByPlayerEvenItem(this)
 {
 }
 
@@ -30,6 +31,7 @@ void EnemySpawner::Update()
 		++currentEnemyIndex;
 	}
 }
+
 void EnemySpawner::Spawn()
 {
 	if (currentEnemyIndex >= enemies.size())
@@ -59,7 +61,28 @@ void EnemySpawner::Spawn()
 	if (enemy != nullptr)
 	{
 		spawnedEnemy.push_back(enemy);
+		enemy->onDestroy.Add(&enemyDestroyEventItem);
+		enemy->onKilled.Add(&enemyKilledByPlayerEvenItem);
 	}
+}
+
+void EnemySpawner::EnemyDestroyed(BaseEnemy* enemy)
+{
+	auto it = std::find(spawnedEnemy.begin(), spawnedEnemy.end(), enemy);
+	if (it != spawnedEnemy.end())
+	{
+		spawnedEnemy.erase(it);
+		--waveEnemyNumber;
+		if (waveEnemyNumber <= 0)
+		{
+			//Trigger end of wave
+		}
+	}
+}
+
+void EnemySpawner::EnemyKilled(int point)
+{
+	//Trigger score increase
 }
 
 void EnemySpawner::StartSpawning()
@@ -69,8 +92,10 @@ void EnemySpawner::StartSpawning()
 		isRunning = true;
 		currentEnemyIndex = 0;
 		timer = 0.0f;
+		waveEnemyNumber = static_cast<int>(enemies.size());
 	}
 }
+
 void EnemySpawner::StopSpawning()
 {
 	isRunning = false;
