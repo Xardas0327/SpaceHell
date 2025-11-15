@@ -17,7 +17,8 @@
 
 enum class GameStatus { Menu, Play, Ended };
 
-
+constexpr float TIME_BETWEEN_WAVES = 3.0f;
+constexpr int WAVE_COUNT = 10;
 
 class GameController : public Learning2DEngine::System::UpdaterComponent,
     public IEnemyKilledByPlayerMessage, public IEndOfEnemyWaveMessage
@@ -35,6 +36,8 @@ protected:
     EndOfEnemyWaveEventItem endOfWaveEventItem;
     int score;
     int waveNumber;
+    float timer;
+    bool isWaveStarted;
 
     GameController(Learning2DEngine::System::GameObject* gameObject);
 
@@ -42,6 +45,11 @@ protected:
     void InitTexts();
     void Update() override;
     void Destroy() override;
+
+    void CheckKeyboard();
+    void StartTimer();
+    void RunTimer();
+    void SpawnNextWave();
 
     void EnemyKilled(int point) override;
     void EndOfWave() override;

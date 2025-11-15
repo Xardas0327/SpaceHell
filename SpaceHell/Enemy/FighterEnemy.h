@@ -7,7 +7,7 @@
 constexpr glm::vec2 FIGHTER_SIZE(64.0f, 64.0f);
 constexpr float FIGHTER_SPEED = 100.0f;
 constexpr int FIGHTER_LIFE = 1;
-constexpr int FIGHTER_BUFF_SPAWN = 15;
+constexpr int FIGHTER_BUFF_SPAWN = 50;
 constexpr float FIGHTER_BULLET_RELOAD = 1.0f; // it will used even the enemy didn't shoot
 constexpr glm::vec2 FIGHTER_BULLET_SIZE(24.0f, 24.0f);
 constexpr int FIGHTER_BULLET_SPEED = 500;
