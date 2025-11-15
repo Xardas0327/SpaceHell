@@ -14,10 +14,10 @@ BuffSpawner::BuffSpawner()
 {
 }
 
-void BuffSpawner::Call(BuffType activatedItem)
+void BuffSpawner::Call(BaseBuff* usedBuff)
 {
-	if (limits[activatedItem] > 0)
-		--limits[activatedItem];
+	if (limits[usedBuff->GetBuffType()] > 0)
+		--limits[usedBuff->GetBuffType()];
 }
 
 void BuffSpawner::ResetLimits()

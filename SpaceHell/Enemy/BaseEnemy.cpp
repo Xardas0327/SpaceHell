@@ -16,8 +16,6 @@ BaseEnemy::BaseEnemy(GameObject* gameObject, glm::vec2 direction, float speed, i
 void BaseEnemy::Destroy()
 {
 	onDestroy.Invoke(this);
-	onKilled.Clear();
-	onDestroy.Clear();
 	UpdaterComponent::Destroy();
 }
 

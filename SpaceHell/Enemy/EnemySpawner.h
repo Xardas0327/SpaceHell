@@ -4,6 +4,7 @@
 
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/System/UpdaterComponent.h>
+#include <Learning2DEngine/EventSystem/EventHandler.h>
 
 #include "EnemyDestroyEventItem.h"
 #include "EnemyKilledByPlayerEvenItem.h"
@@ -39,6 +40,9 @@ protected:
 	void EnemyKilled(int point) override;
 
 public:
+	Learning2DEngine::EventSystem::EventHandler<int> refreshScore;
+	Learning2DEngine::EventSystem::EventHandler<> destroyedAllEnemies;
+
 	~EnemySpawner() = default;
 
 	void StartSpawning();

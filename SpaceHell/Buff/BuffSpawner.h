@@ -17,7 +17,7 @@ const std::map<BuffType, int> BUFF_LIMITS = {
 };
 
 class BuffSpawner final : public Learning2DEngine::System::Singleton<BuffSpawner>,
-							public Learning2DEngine::EventSystem::EventItem<BuffType>
+							public Learning2DEngine::EventSystem::EventItem<BaseBuff*>
 {
 	friend class Learning2DEngine::System::Singleton<BuffSpawner>;
 private:
@@ -25,7 +25,7 @@ private:
 
 	BuffSpawner();
 
-	void Call(BuffType activatedItem) override;
+	void Call(BaseBuff* usedBuff) override;
 public:
 	~BuffSpawner() = default;
 

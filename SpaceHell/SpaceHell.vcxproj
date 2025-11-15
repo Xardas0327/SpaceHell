@@ -172,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundController.h" />
+    <ClInclude Include="Enemy\EndOfEnemyWaveEventItem.h" />
     <ClInclude Include="Enemy\EnemyDestroyEventItem.h" />
     <ClInclude Include="Enemy\EnemyKilledByPlayerEvenItem.h" />
     <ClInclude Include="Enemy\EnemySpawner.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Buff\WeaponBuff.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Enemy\BaseEnemy.h" />
+    <ClInclude Include="Enemy\IEndOfEnemyWaveMessage.h" />
     <ClInclude Include="Enemy\IEnemyDestroyMessage.h" />
     <ClInclude Include="Enemy\IEnemyKilledByPlayerMessage.h" />
     <ClInclude Include="GameController.h" />

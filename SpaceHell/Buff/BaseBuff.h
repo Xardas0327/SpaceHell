@@ -41,6 +41,13 @@ protected:
 
 	virtual void BuffPlayer(PlayerController* player) = 0;
 public:
-	Learning2DEngine::EventSystem::EventHandler<BuffType> Activated;
+	Learning2DEngine::EventSystem::EventHandler<BaseBuff*> Activated;
+
+	virtual ~BaseBuff() = default;
+
+	inline BuffType GetBuffType() const
+	{
+		return buffType;
+	}
 };
 

@@ -14,8 +14,10 @@ using namespace Learning2DEngine::UI;
 
 GameController::GameController(GameObject* gameObject)
     : UpdaterComponent(gameObject), Component(gameObject), fpsShower(nullptr), player(nullptr),
-	backgroundController(nullptr), enemySpawner(nullptr),
-    fpsFont("Assets/Fonts/arial.ttf", 24)
+    backgroundController(nullptr), enemySpawner(nullptr), scoreText(nullptr), waveText(nullptr),
+    font("Assets/Fonts/arial.ttf", 24),
+    refreshScoreEventItem(this), endOfWaveEventItem(this),
+    score(0), waveNumber(0)
 {
 
 }
@@ -24,14 +26,7 @@ void GameController::Init()
 {
     UpdaterComponent::Init();
 
-    //FPS
-    fpsShower = FpsShower::CreateFpsShowerObject(
-        Transform(
-            glm::vec2(2.0f, Game::mainCamera.GetResolution().GetHeight() - 26)
-        ),
-        fpsFont,
-        99);
-    fpsShower->gameObject->isActive = false;
+    InitTexts();
 
     //Player
     player = PlayerController::Create(
@@ -46,8 +41,15 @@ void GameController::Init()
     backgroundController = BackgroundController::Create(Game::mainCamera.GetResolution().ToVec2());
     backgroundController->Start();
 
+    //Texts
+
+    //Score
+    RefreshScore();
+
     //Enemy Spawner
     enemySpawner = GameObjectManager::GetInstance().CreateGameObject()->AddComponent<EnemySpawner>();
+    enemySpawner->destroyedAllEnemies.Add(&endOfWaveEventItem);
+    enemySpawner->refreshScore.Add(&refreshScoreEventItem);
 
     //TEST
     /*std::vector<EnemySpawnerItem> enemiesToSpawn =
@@ -60,9 +62,41 @@ void GameController::Init()
         { EnemySpawnerItemType::Disk, glm::vec2(0.0f, 0.0f), 1.5f },
         { EnemySpawnerItemType::Disk, glm::vec2(Game::mainCamera.GetResolution().GetWidth() - DISK_SIZE.x, 0.0f), 0.0f},
         { EnemySpawnerItemType::Fighter, glm::vec2(600.0f, -50.0f), 1.0f },
-	};
-	enemySpawner->SetEnemies(enemiesToSpawn);
-	enemySpawner->StartSpawning();*/
+    };
+    enemySpawner->SetEnemies(enemiesToSpawn);
+    ++waveNumber;
+    RefreshWaves();
+    enemySpawner->StartSpawning();*/
+}
+
+void GameController::InitTexts()
+{
+    auto& gameObjectManager = GameObjectManager::GetInstance();
+
+    //Score Text
+    auto scoreGameObject = gameObjectManager.CreateGameObject(
+        Transform(
+            glm::vec2(10.0f, 10.0f)
+        )
+    );
+    scoreText = scoreGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font);
+
+    //Waves Text
+    auto wavesGameObject = gameObjectManager.CreateGameObject(
+        Transform(
+            glm::vec2(Game::mainCamera.GetResolution().GetWidth() - 175.0f, 10.0f)
+        )
+    );
+    waveText = wavesGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font);
+
+    //FPS
+    fpsShower = FpsShower::CreateFpsShowerObject(
+        Transform(
+            glm::vec2(10.0f, Game::mainCamera.GetResolution().GetHeight() - 30.0f)
+        ),
+        font,
+        99);
+    fpsShower->gameObject->isActive = false;
 }
 
 void GameController::Update()
@@ -75,6 +109,34 @@ void GameController::Update()
 
     if (Game::GetKeyboardButtonStatus(GLFW_KEY_F) == InputStatus::KEY_DOWN)
     {
-		fpsShower->gameObject->isActive = !fpsShower->gameObject->isActive;
+        fpsShower->gameObject->isActive = !fpsShower->gameObject->isActive;
     }
+}
+
+void GameController::Destroy()
+{
+    enemySpawner->ClearSpawnedEnemies();
+    UpdaterComponent::Destroy();
+}
+
+void GameController::EnemyKilled(int point)
+{
+    score += point;
+    RefreshScore();
+}
+
+void GameController::EndOfWave()
+{
+    ++waveNumber;
+    RefreshWaves();
+}
+
+void GameController::RefreshScore()
+{
+    scoreText->data.SetText("Score: " + std::to_string(score));
+}
+
+void GameController::RefreshWaves()
+{
+    waveText->data.SetText("Waves: " + std::to_string(waveNumber) + "/10");
 }

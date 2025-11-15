@@ -75,14 +75,14 @@ void EnemySpawner::EnemyDestroyed(BaseEnemy* enemy)
 		--waveEnemyNumber;
 		if (waveEnemyNumber <= 0)
 		{
-			//Trigger end of wave
+			destroyedAllEnemies.Invoke();
 		}
 	}
 }
 
 void EnemySpawner::EnemyKilled(int point)
 {
-	//Trigger score increase
+	refreshScore.Invoke(point);
 }
 
 void EnemySpawner::StartSpawning()
@@ -105,6 +105,8 @@ void EnemySpawner::ClearSpawnedEnemies()
 {
 	for (BaseEnemy* enemy : spawnedEnemy)
 	{
+		enemy->onDestroy.Remove(&enemyDestroyEventItem);
+		enemy->onKilled.Remove(&enemyKilledByPlayerEvenItem);
 		GameObjectManager::GetInstance().DestroyGameObject(enemy);
 	}
 	spawnedEnemy.clear();

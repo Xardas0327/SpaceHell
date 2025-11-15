@@ -89,7 +89,7 @@ void BaseBuff::OnCollision(const Collision& collision)
 	if (player != nullptr)
 	{
 		BuffPlayer(player);
-		Activated.Invoke(buffType);
+		Activated.Invoke(this);
 		GameObjectManager::GetInstance().DestroyGameObject(gameObject);
 	}
 }
