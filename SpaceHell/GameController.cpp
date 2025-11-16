@@ -53,7 +53,7 @@ void GameController::Init()
     enemySpawner->refreshScore.Add(&refreshScoreEventItem);
 
     //TEST
-    //waveNumber = 4; // next wave is waveNumber + 1
+    //waveNumber = 6; // next wave is waveNumber + 1
     StartTimer();
 }
 
@@ -210,8 +210,48 @@ void GameController::SpawnNextWave()
             });
         break;
     case 6:
+        enemySpawner->SetEnemies({
+            { EnemySpawnerItemType::Speedy, glm::vec2(150.0f, -50.0f), 0.0f },
+            { EnemySpawnerItemType::Speedy, glm::vec2(450.0f, -50.0f), 0.0f },
+            { EnemySpawnerItemType::Fighter, glm::vec2(300.0f, -50.0f), 0.5f },
+            { EnemySpawnerItemType::ScoutLeft, glm::vec2(700.0f, 600.0f), 2.0f },
+            { EnemySpawnerItemType::ScoutLeft, glm::vec2(700.0f, 550.0f), 0.2f },
+            { EnemySpawnerItemType::ScoutLeft, glm::vec2(700.0f, 500.0f), 0.2f },
+            { EnemySpawnerItemType::Disk, glm::vec2(0.0f, 0.0f), 0.0f },
+            { EnemySpawnerItemType::Disk, glm::vec2(Game::mainCamera.GetResolution().GetWidth() - DISK_SIZE.x, 0.0f), 0.0f},
+            { EnemySpawnerItemType::ScoutRight, glm::vec2(-SCOUT_SIZE.x, 450.0f), 0.2f },
+            { EnemySpawnerItemType::ScoutRight, glm::vec2(-SCOUT_SIZE.x, 400.0f), 0.2f },
+            { EnemySpawnerItemType::ScoutRight, glm::vec2(-SCOUT_SIZE.x, 350.0f), 0.2f },
+            { EnemySpawnerItemType::Fighter, glm::vec2(300.0f, -50.0f), 0.5f },
+            { EnemySpawnerItemType::Fighter, glm::vec2(300.0f, -50.0f), 0.8f },
+            { EnemySpawnerItemType::ScoutLeft, glm::vec2(700.0f, 350.0f), 1.0f },
+            { EnemySpawnerItemType::Fighter, glm::vec2(100.0f, -50.0f), 0.0f },
+            { EnemySpawnerItemType::Fighter, glm::vec2(550.0f, -50.0f), 0.0f },
+            { EnemySpawnerItemType::Disk, glm::vec2(0.0f, 0.0f), 0.0f },
+            { EnemySpawnerItemType::ScoutLeft, glm::vec2(700.0f, 400.0f), 0.2f },
+            { EnemySpawnerItemType::ScoutLeft, glm::vec2(700.0f, 450.0f), 0.2f },
+            { EnemySpawnerItemType::ScoutLeft, glm::vec2(700.0f, 500.0f), 0.2f },
+            { EnemySpawnerItemType::Speedy, glm::vec2(300.0f, -50.0f), 0.0f },
+            });
         break;
     case 7:
+        enemySpawner->SetEnemies({
+            { EnemySpawnerItemType::Disk, glm::vec2(0.0f, 0.0f), 0.0f },
+            { EnemySpawnerItemType::Disk, glm::vec2(DISK_SIZE.x, 0.0f), 0.3f },
+            { EnemySpawnerItemType::Disk, glm::vec2(Game::mainCamera.GetResolution().GetWidth() - DISK_SIZE.x, 0.0f), 0.5f},
+            { EnemySpawnerItemType::Disk, glm::vec2(Game::mainCamera.GetResolution().GetWidth() - 2 * DISK_SIZE.x, 0.0f), 0.3f},
+            { EnemySpawnerItemType::ScoutLeft, glm::vec2(700.0f, 600.0f), 2.0f },
+            { EnemySpawnerItemType::Fighter, glm::vec2(100.0f, -50.0f), 0.0f },
+            { EnemySpawnerItemType::Fighter, glm::vec2(550.0f, -50.0f), 0.0f },
+            { EnemySpawnerItemType::Fighter, glm::vec2(100.0f, -50.0f), 0.8f },
+            { EnemySpawnerItemType::Speedy, glm::vec2(450.0f, -50.0f), 0.0f },
+            { EnemySpawnerItemType::Speedy, glm::vec2(175.0f, -50.0f), 0.2f },
+            { EnemySpawnerItemType::Disk, glm::vec2(DISK_SIZE.x, 0.0f), 0.0f },
+            { EnemySpawnerItemType::ScoutRight, glm::vec2(-SCOUT_SIZE.x, 450.0f), 2.5f },
+            { EnemySpawnerItemType::ScoutRight, glm::vec2(-SCOUT_SIZE.x, 400.0f), 0.2f },
+            { EnemySpawnerItemType::ScoutRight, glm::vec2(-SCOUT_SIZE.x, 350.0f), 0.2f },
+            { EnemySpawnerItemType::Speedy, glm::vec2(325.0f, -50.0f), 0.5f },
+            });
         break;
     case 8:
         break;
