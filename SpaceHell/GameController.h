@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string_view>
 #include <glm/glm.hpp>
 
 #include <Learning2DEngine/System/GameObject.h>
@@ -15,10 +16,13 @@
 #include "Enemy/EndOfEnemyWaveEventItem.h"
 
 
-enum class GameStatus { Menu, Play, Ended };
+enum class GameStatus { Menu, Intro, Play, Ended };
 
 constexpr float TIME_BETWEEN_WAVES = 5.0f;
 constexpr int WAVE_COUNT = 10;
+constexpr const char* CONTROL_TEXT = "Control:\nMove - WASD or Arrows\nShoot - Space\nF  - Show/Hide FPS";
+constexpr const char* PRESS_TEXT = "Press ENTER";
+constexpr const char* START_TEXT = "The Akruh Empire attack our galaxy and\nthere is only ONE person, who can save us.\nBut he is out of office.\nSo...\nGood Luck Rookie!";
 
 class GameController : public Learning2DEngine::System::UpdaterComponent,
     public IEnemyKilledByPlayerMessage, public IEndOfEnemyWaveMessage
@@ -31,6 +35,11 @@ protected:
     EnemySpawner* enemySpawner;
     Learning2DEngine::UI::SimpleText2DRenderComponent* scoreText;
     Learning2DEngine::UI::SimpleText2DRenderComponent* waveText;
+    Learning2DEngine::UI::SimpleText2DRenderComponent* controlText;
+    Learning2DEngine::UI::SimpleText2DRenderComponent* pressText;
+    Learning2DEngine::UI::SimpleText2DRenderComponent* startText;
+    Learning2DEngine::UI::SimpleText2DRenderComponent* finishText;
+    Learning2DEngine::UI::SimpleText2DRenderComponent* gameOverText;
     const Learning2DEngine::UI::FontSizePair font;
     EnemyKilledByPlayerEvenItem refreshScoreEventItem;
     EndOfEnemyWaveEventItem endOfWaveEventItem;
@@ -38,6 +47,8 @@ protected:
     int waveNumber;
     float timer;
     bool isWaveStarted;
+    GameStatus status;
+    glm::vec2 playerStartPosition;
 
     GameController(Learning2DEngine::System::GameObject* gameObject);
 
@@ -45,6 +56,10 @@ protected:
     void InitTexts();
     void Update() override;
     void Destroy() override;
+
+    void ShowControl();
+    void ShowIntro();
+    void StartGame();
 
     void CheckKeyboard();
     void StartTimer();

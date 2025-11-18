@@ -90,11 +90,10 @@ namespace Learning2DEngine
                 if (*c == '\n')
                 {
                     if (x > size.x)
-                    {
                         size.x = x;
-                        size.y += characterMap['H'].size.y * component->gameObject->transform.GetScale().y + lineSpacing;
-                        x = 0.0f;
-                    }
+
+                    size.y += characterMap['H'].size.y * component->gameObject->transform.GetScale().y + lineSpacing;
+                    x = 0.0f;
                     continue;
                 }
                 const auto& ch = characterMap[*c];
