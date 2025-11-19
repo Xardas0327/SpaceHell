@@ -131,6 +131,12 @@
     <ClInclude Include="Enemy\IEndOfEnemyWaveMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeadOfPlayerEventItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IDeadOfPlayerMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\Viper.ttf" />

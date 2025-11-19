@@ -172,6 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundController.h" />
+    <ClInclude Include="DeadOfPlayerEventItem.h" />
+    <ClInclude Include="IDeadOfPlayerMessage.h" />
     <ClInclude Include="Enemy\EndOfEnemyWaveEventItem.h" />
     <ClInclude Include="Enemy\EnemyDestroyEventItem.h" />
     <ClInclude Include="Enemy\EnemyKilledByPlayerEvenItem.h" />

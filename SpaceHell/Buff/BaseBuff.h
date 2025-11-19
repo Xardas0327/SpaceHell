@@ -41,7 +41,8 @@ protected:
 
 	virtual void BuffPlayer(PlayerController* player) = 0;
 public:
-	Learning2DEngine::EventSystem::EventHandler<BaseBuff*> Activated;
+	//The bool is true, when the player activated the buff, false when it just disappeared
+	Learning2DEngine::EventSystem::EventHandler<BaseBuff*, bool> disappeared;
 
 	virtual ~BaseBuff() = default;
 

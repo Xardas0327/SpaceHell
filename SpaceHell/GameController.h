@@ -11,6 +11,7 @@
 
 #include "BackgroundController.h"
 #include "PlayerController.h"
+#include "DeadOfPlayerEventItem.h"
 #include "Enemy/EnemySpawner.h"
 #include "Enemy/EnemyKilledByPlayerEvenItem.h"
 #include "Enemy/EndOfEnemyWaveEventItem.h"
@@ -22,10 +23,12 @@ constexpr float TIME_BETWEEN_WAVES = 5.0f;
 constexpr int WAVE_COUNT = 10;
 constexpr const char* CONTROL_TEXT = "Control:\nMove - WASD or Arrows\nShoot - Space\nF  - Show/Hide FPS";
 constexpr const char* PRESS_TEXT = "Press ENTER";
-constexpr const char* START_TEXT = "The Akruh Empire attack our galaxy and\nthere is only ONE person, who can save us.\nBut he is out of office.\nSo...\nGood Luck Rookie!";
+constexpr const char* START_TEXT = "The Akruh Empire attack our galaxy and\nthere is only ONE person, who can save us.\nBut he is out of office.\nSo...\nGood luck Rookie!";
+constexpr const char* GAME_OVER_TEXT = "GAME OVER";
+constexpr const char* FINISH_TEXT = "YOU WIN!";
 
 class GameController : public Learning2DEngine::System::UpdaterComponent,
-    public IEnemyKilledByPlayerMessage, public IEndOfEnemyWaveMessage
+	public IEnemyKilledByPlayerMessage, public IEndOfEnemyWaveMessage, public IDeadOfPlayerMessage
 {
     friend class Learning2DEngine::System::GameObject;
 protected:
@@ -43,6 +46,7 @@ protected:
     const Learning2DEngine::UI::FontSizePair font;
     EnemyKilledByPlayerEvenItem refreshScoreEventItem;
     EndOfEnemyWaveEventItem endOfWaveEventItem;
+    DeadOfPlayerEventItem deadOfPlayerEventItem;
     int score;
     int waveNumber;
     float timer;
@@ -68,6 +72,7 @@ protected:
 
     void EnemyKilled(int point) override;
     void EndOfWave() override;
+    void DeadOfPlayer() override;
     void RefreshScore();
     void RefreshWaves();
 };

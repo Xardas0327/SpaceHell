@@ -8,6 +8,8 @@
 #include <Learning2DEngine/Render/SpriteRenderComponent.h>
 #include <Learning2DEngine/UI/TextBoxComponent.h>
 
+#include "Buff/BuffSpawner.h"
+
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 using namespace Learning2DEngine::Object;
@@ -18,7 +20,7 @@ GameController::GameController(GameObject* gameObject)
     backgroundController(nullptr), enemySpawner(nullptr), scoreText(nullptr), waveText(nullptr),
     controlText(nullptr), pressText(nullptr), startText(nullptr), finishText(nullptr),
     gameOverText(nullptr), font("Assets/Fonts/arial.ttf", 24),
-    refreshScoreEventItem(this), endOfWaveEventItem(this),
+    refreshScoreEventItem(this), endOfWaveEventItem(this), deadOfPlayerEventItem(this),
     score(0), waveNumber(0), timer(0.0f), isWaveStarted(false), status(GameStatus::Menu),
     playerStartPosition(0.0f, 0.0f)
 {
@@ -37,6 +39,7 @@ void GameController::Init()
         Game::mainCamera.GetResolution().GetHeight() - 100.0f
     );
     player = PlayerController::Create(playerStartPosition);
+    player->onDead.Add(&deadOfPlayerEventItem);
 
     //Background
     backgroundController = BackgroundController::Create(Game::mainCamera.GetResolution().ToVec2());
@@ -106,6 +109,28 @@ void GameController::InitTexts()
     auto startBox = startGameObject->AddComponent<TextBoxComponent>(*startText, TextBoxMode::SIMPLE, -1, glm::vec4(0.1f, 0.1f, 0.1f, 0.9f));
     startBox->SetPadding(10.0f);
 
+    //Finish Text
+    auto finishGameObject = gameObjectManager.CreateGameObject(
+        Transform(
+            glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 85.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 20.0f),
+            glm::vec2(1.5f, 1.5f)
+        )
+    );
+    finishText = finishGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font, FINISH_TEXT);
+    auto finish = finishGameObject->AddComponent<TextBoxComponent>(*finishText, TextBoxMode::SIMPLE, -1, glm::vec4(0.1f, 0.1f, 0.1f, 0.9f));
+    finish->SetPadding(10.0f);
+
+    //Game Over Text
+    auto gameOverGameObject = gameObjectManager.CreateGameObject(
+        Transform(
+            glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 110.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 20.0f),
+            glm::vec2(1.5f, 1.5f)
+        )
+    );
+    gameOverText = gameOverGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font, GAME_OVER_TEXT);
+    auto gameOver = gameOverGameObject->AddComponent<TextBoxComponent>(*gameOverText, TextBoxMode::SIMPLE, -1, glm::vec4(0.1f, 0.1f, 0.1f, 0.9f));
+    gameOver->SetPadding(10.0f);
+
     //FPS
     fpsShower = FpsShower::CreateFpsShowerObject(
         Transform(
@@ -131,15 +156,26 @@ void GameController::Destroy()
 void GameController::ShowControl()
 {
     status = GameStatus::Menu;
+    enemySpawner->StopSpawning();
+    enemySpawner->ClearSpawnedEnemies();
+    BuffSpawner::GetInstance().ClearActiveBuffs();
     controlText->isActive = true;
     pressText->isActive = true;
     startText->isActive = false;
+    gameOverText->isActive = false;
+    finishText->isActive = false;
     player->SetFrozen(true);
+    player->Reset(playerStartPosition);
+    player->gameObject->isActive = true;
 }
 
 void GameController::ShowIntro()
 {
     status = GameStatus::Intro;
+    waveNumber = 0;
+    RefreshWaves();
+    score = 0;
+    RefreshScore();
     controlText->isActive = false;
     startText->isActive = true;
 }
@@ -151,7 +187,6 @@ void GameController::StartGame()
     startText->isActive = false;
     StartTimer();
     player->SetFrozen(false);
-    player->Reset(playerStartPosition);
 }
 
 void GameController::CheckKeyboard()
@@ -178,6 +213,7 @@ void GameController::CheckKeyboard()
             StartGame();
             break;
         case GameStatus::Ended:
+            ShowControl();
             break;
         default:
             break;
@@ -423,7 +459,23 @@ void GameController::EnemyKilled(int point)
 
 void GameController::EndOfWave()
 {
-    StartTimer();
+    if (waveNumber < WAVE_COUNT)
+        StartTimer();
+    else
+    {
+        status = GameStatus::Ended;
+        finishText->isActive = true;
+        pressText->isActive = true;
+        player->SetFrozen(true);
+    }
+}
+
+void GameController::DeadOfPlayer()
+{
+    status = GameStatus::Ended;
+    player->gameObject->isActive = false;
+    pressText->isActive = true;
+    gameOverText->isActive = true;
 }
 
 void GameController::RefreshScore()

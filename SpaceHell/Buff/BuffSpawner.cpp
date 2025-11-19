@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <Learning2DEngine/System/Random.h>
+#include <Learning2DEngine/System/GameObjectManager.h>
 
 #include "ShieldBuff.h"
 #include "SpeedBuff.h"
@@ -10,19 +11,35 @@
 using namespace Learning2DEngine::System;
 
 BuffSpawner::BuffSpawner()
-	: limits(BUFF_LIMITS)
+	: limits(BUFF_LIMITS), activeBuffs()
 {
 }
 
-void BuffSpawner::Call(BaseBuff* usedBuff)
+void BuffSpawner::Call(BaseBuff* usedBuff, bool activated)
 {
-	if (limits[usedBuff->GetBuffType()] > 0)
+	if (activated && limits[usedBuff->GetBuffType()] > 0)
 		--limits[usedBuff->GetBuffType()];
+
+	auto it = std::find(activeBuffs.begin(), activeBuffs.end(), usedBuff);
+	if (it != activeBuffs.end())
+	{
+		activeBuffs.erase(it);
+	}
 }
 
 void BuffSpawner::ResetLimits()
 {
 	limits = BUFF_LIMITS;
+}
+
+void BuffSpawner::ClearActiveBuffs()
+{
+	auto& manager = GameObjectManager::GetInstance();
+	for (BaseBuff* buff : activeBuffs)
+	{
+		manager.DestroyGameObject(buff);
+	}
+	activeBuffs.clear();
 }
 
 BaseBuff* BuffSpawner::SpawnBuff(const glm::vec2& position, int percentage)
@@ -65,8 +82,11 @@ BaseBuff* BuffSpawner::SpawnBuff(const glm::vec2& position, int percentage)
 		break;
 	}
 
-	if(buff != nullptr)
-		buff->Activated.Add(this);
+	if (buff != nullptr)
+	{
+		activeBuffs.push_back(buff);
+		buff->disappeared.Add(this);
+	}
 
 	return buff;
 }

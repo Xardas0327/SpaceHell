@@ -18,7 +18,7 @@ PlayerController::PlayerController(GameObject* gameObject)
     CircleColliderComponent(gameObject, PLAYER_SIZE.x / 2.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER, PLAYER_COllIDER_OFFSET, PLAYER_COLLER_MASK),
     sprite(nullptr), shieldSprite(nullptr), shieldAnimation(nullptr),
     isFrozen(true), reloadTimer(0.0f), bulletNumber(PLAYER_BULLET_DEFAULT_NUMBER), maxBulletNumber(PLAYER_BULLET_DEFAULT_NUMBER),
-    life(PLAYER_DEFAULT_LIFE), speed(PLAYER_DEFAULT_SPEED), isImmortal(false), immortalTimer(0.0f)
+	life(PLAYER_DEFAULT_LIFE), speed(PLAYER_DEFAULT_SPEED), isImmortal(false), immortalTimer(0.0f), onDead()
 {
 
 }
@@ -204,12 +204,18 @@ void PlayerController::SetFrozen(bool frozen)
 
 void PlayerController::Hit(int damage)
 {
-    if (isImmortal)
+    if (isImmortal || isFrozen)
         return;
 
     life -= damage;
-    isImmortal = true;
     RefreshLifeShield();
+
+    if(life <= 0)
+    {
+        onDead.Invoke();
+        return;
+    }
+    isImmortal = true;
 }
 
 void PlayerController::ResetLife()
