@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string_view>
 #include <glm/glm.hpp>
 
 #include <Learning2DEngine/System/GameObject.h>
