@@ -10,7 +10,7 @@ using namespace Learning2DEngine::Render;
 using namespace Learning2DEngine::Physics;
 
 SpeedyEnemy::SpeedyEnemy(GameObject* gameObject)
-	: BaseEnemy(gameObject, glm::vec2(0.0f, 1.0f), SPEEDY_SPEED, SPEEDY_LIFE, SPEEDY_BUFF_SPAWN), Component(gameObject),
+	: BaseEnemy(gameObject, glm::vec2(0.0f, 1.0f), SPEEDY_SPEED, SPEEDY_LIFE, SPEEDY_BUFF_SPAWN, SPEEDY_POINT), Component(gameObject),
 	shieldSprite(nullptr), shieldAnimation(nullptr)
 {
 }

@@ -2,7 +2,7 @@
 
 #include "BaseBuff.h"
 
-constexpr float WEAPON_BUFF_LIFE_TIME = 10.0f;
+constexpr float WEAPON_BUFF_LIFE_TIME = 5.0f;
 
 class WeaponBuff : public BaseBuff
 {

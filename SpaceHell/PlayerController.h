@@ -7,6 +7,7 @@
 #include <Learning2DEngine/System/UpdaterComponent.h>
 #include <Learning2DEngine/Render/SpriteRenderComponent.h>
 #include <Learning2DEngine/Physics/CircleColliderComponent.h>
+#include <Learning2DEngine/EventSystem/EventHandler.h>
 
 constexpr glm::vec2 PLAYER_SIZE(64.0f, 64.0f);
 constexpr float PLAYER_DEFAULT_SPEED = 300.0f;
@@ -53,6 +54,8 @@ protected:
     void RefreshImmortal();
     void Shoot();
 public:
+    Learning2DEngine::EventSystem::EventHandler<> onDead;
+
     void Reset(glm::vec2 position);
 	void SetFrozen(bool frozen);
     void Hit(int damage = 1);

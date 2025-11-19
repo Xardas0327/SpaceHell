@@ -22,7 +22,7 @@ BaseBuff::BaseBuff(
 	: LateUpdaterComponent(gameObject), Component(gameObject),
 	CircleColliderComponent(gameObject, 16.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER),
 	textureId(std::move(textureId)), animationLength(animationLength), animationFrameLength(animationFrameLength),
-	lifeInSeconds(lifeInSeconds), speed(speed), buffType(buffType)
+	lifeInSeconds(lifeInSeconds), speed(speed), buffType(buffType), disappeared()
 {
 }
 
@@ -73,6 +73,7 @@ void BaseBuff::LateUpdate()
 	lifeInSeconds -= Time::GetDeltaTime();
 	if (lifeInSeconds <= 0.0f)
 	{
+		disappeared.Invoke(this, false);
 		GameObjectManager::GetInstance().DestroyGameObject(gameObject);
 	}
 }
@@ -89,7 +90,7 @@ void BaseBuff::OnCollision(const Collision& collision)
 	if (player != nullptr)
 	{
 		BuffPlayer(player);
-		Activated.Invoke(buffType);
+		disappeared.Invoke(this, true);
 		GameObjectManager::GetInstance().DestroyGameObject(gameObject);
 	}
 }
