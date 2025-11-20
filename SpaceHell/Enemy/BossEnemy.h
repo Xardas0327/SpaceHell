@@ -35,7 +35,6 @@ protected:
 public:
 	void Hit(int damage = 1) override;
 	void Kill() override;
-	void HeroShoot();
 
 	static BossEnemy* Create();
 };

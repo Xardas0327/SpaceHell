@@ -9,6 +9,7 @@
 #include <Learning2DEngine/UI/TextBoxComponent.h>
 
 #include "Buff/BuffSpawner.h"
+#include "Enemy/BossEnemy.h"
 
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
@@ -158,7 +159,6 @@ void GameController::ShowControl()
     status = GameStatus::Menu;
     enemySpawner->StopSpawning();
     enemySpawner->ClearSpawnedEnemies();
-    BuffSpawner::GetInstance().ClearActiveBuffs();
     controlText->isActive = true;
     pressText->isActive = true;
     startText->isActive = false;
@@ -167,6 +167,10 @@ void GameController::ShowControl()
     player->SetFrozen(true);
     player->Reset(playerStartPosition);
     player->gameObject->isActive = true;
+
+    auto& buffSpawner = BuffSpawner::GetInstance();
+    buffSpawner.ClearActiveBuffs();
+    buffSpawner.ResetLimits();
 }
 
 void GameController::ShowIntro()
@@ -242,11 +246,14 @@ void GameController::RunTimer()
 
 void GameController::SpawnNextWave()
 {
-    if (waveNumber >= WAVE_COUNT)
-        return;
-
     ++waveNumber;
     RefreshWaves();
+
+    if (waveNumber > WAVE_COUNT)
+    {
+        BossEnemy::Create();
+        return;
+    }
 
     switch (waveNumber)
     {
@@ -459,15 +466,7 @@ void GameController::EnemyKilled(int point)
 
 void GameController::EndOfWave()
 {
-    if (waveNumber < WAVE_COUNT)
-        StartTimer();
-    else
-    {
-        status = GameStatus::Ended;
-        finishText->isActive = true;
-        pressText->isActive = true;
-        player->SetFrozen(true);
-    }
+    StartTimer();
 }
 
 void GameController::DeadOfPlayer()

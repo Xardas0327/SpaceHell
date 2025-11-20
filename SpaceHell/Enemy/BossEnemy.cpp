@@ -106,11 +106,6 @@ void BossEnemy::Hit(int damage)
 
 void BossEnemy::Kill()
 {
-	return;
-}
-
-void BossEnemy::HeroShoot()
-{
 	destructionAnimation->Play();
 	isDying = true;
 	collider->isActive = false;
