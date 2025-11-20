@@ -57,6 +57,9 @@
     <ClCompile Include="Enemy\EnemySpawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy\BossEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceHell.h">
@@ -137,6 +140,9 @@
     <ClInclude Include="IDeadOfPlayerMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy\BossEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\Viper.ttf" />
@@ -182,19 +188,16 @@
     <Image Include="Assets\Images\Enemy\Disk.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Images\Weapon\Wave.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Images\Weapon\SpinningBullet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Images\Weapon\Ray.png">
+    <Image Include="Assets\Images\Weapon\HeroBullet.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Images\Weapon\EnemyBullet.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Images\Enemy\Boss.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Images\Player\Hero.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

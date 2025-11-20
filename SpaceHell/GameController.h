@@ -22,7 +22,7 @@ constexpr float TIME_BETWEEN_WAVES = 5.0f;
 constexpr int WAVE_COUNT = 10;
 constexpr const char* CONTROL_TEXT = "Control:\nMove - WASD or Arrows\nShoot - Space\nF  - Show/Hide FPS";
 constexpr const char* PRESS_TEXT = "Press ENTER";
-constexpr const char* START_TEXT = "The Akruh Empire attack our galaxy and\nthere is only ONE person, who can save us.\nBut he is out of office.\nSo...\nGood luck Rookie!";
+constexpr const char* START_TEXT = "The Akruh Empire attack our galaxy and\nthere is only ONE person, who can save us.\nBut the hero is out of office.\nSo...\nGood luck Rookie!";
 constexpr const char* GAME_OVER_TEXT = "GAME OVER";
 constexpr const char* FINISH_TEXT = "YOU WIN!";
 

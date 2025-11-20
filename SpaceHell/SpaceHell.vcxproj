@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackgroundController.cpp" />
+    <ClCompile Include="Enemy\BossEnemy.cpp" />
     <ClCompile Include="Enemy\EnemySpawner.cpp" />
     <ClCompile Include="Enemy\DiskEnemy.cpp" />
     <ClCompile Include="Enemy\FighterEnemy.cpp" />
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundController.h" />
+    <ClInclude Include="Enemy\BossEnemy.h" />
     <ClInclude Include="DeadOfPlayerEventItem.h" />
     <ClInclude Include="IDeadOfPlayerMessage.h" />
     <ClInclude Include="Enemy\EndOfEnemyWaveEventItem.h" />
@@ -219,13 +221,12 @@
     <Image Include="Assets\Images\Enemy\Scout.png" />
     <Image Include="Assets\Images\Enemy\Speedy.png" />
     <Image Include="Assets\Images\Enemy\SpeedyShield.png" />
+    <Image Include="Assets\Images\Player\Hero.png" />
     <Image Include="Assets\Images\Player\PlayerShip.png" />
     <Image Include="Assets\Images\Player\Shield.png" />
     <Image Include="Assets\Images\Weapon\EnemyBullet.png" />
     <Image Include="Assets\Images\Weapon\PlayerBullet.png" />
-    <Image Include="Assets\Images\Weapon\Ray.png" />
-    <Image Include="Assets\Images\Weapon\SpinningBullet.png" />
-    <Image Include="Assets\Images\Weapon\Wave.png" />
+    <Image Include="Assets\Images\Weapon\HeroBullet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
