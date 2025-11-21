@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseEnemy.h"
+#include "../Enemy/BaseEnemy.h"
 
 class IEnemyDestroyMessage
 {

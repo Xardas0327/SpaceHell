@@ -10,10 +10,10 @@
 
 #include "BackgroundController.h"
 #include "PlayerController.h"
-#include "DeadOfPlayerEventItem.h"
+#include "Event/DeadOfPlayerEventItem.h"
+#include "Event/EnemyKilledByPlayerEvenItem.h"
+#include "Event/EndOfEnemyWaveEventItem.h"
 #include "Enemy/EnemySpawner.h"
-#include "Enemy/EnemyKilledByPlayerEvenItem.h"
-#include "Enemy/EndOfEnemyWaveEventItem.h"
 
 
 enum class GameStatus { Menu, Intro, Play, Ended };

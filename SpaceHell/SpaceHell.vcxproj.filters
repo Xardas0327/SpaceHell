@@ -116,28 +116,28 @@
     <ClInclude Include="Enemy\EnemySpawnerItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy\EnemyDestroyEventItem.h">
+    <ClInclude Include="Event\EnemyDestroyEventItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy\IEnemyDestroyMessage.h">
+    <ClInclude Include="Event\IEnemyDestroyMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy\IEnemyKilledByPlayerMessage.h">
+    <ClInclude Include="Event\IEnemyKilledByPlayerMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy\EnemyKilledByPlayerEvenItem.h">
+    <ClInclude Include="Event\EnemyKilledByPlayerEvenItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy\EndOfEnemyWaveEventItem.h">
+    <ClInclude Include="Event\EndOfEnemyWaveEventItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy\IEndOfEnemyWaveMessage.h">
+    <ClInclude Include="Event\IEndOfEnemyWaveMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DeadOfPlayerEventItem.h">
+    <ClInclude Include="Event\DeadOfPlayerEventItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IDeadOfPlayerMessage.h">
+    <ClInclude Include="Event\IDeadOfPlayerMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy\BossEnemy.h">
