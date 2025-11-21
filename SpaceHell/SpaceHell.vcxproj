@@ -174,7 +174,10 @@
   <ItemGroup>
     <ClInclude Include="BackgroundController.h" />
     <ClInclude Include="Enemy\BossEnemy.h" />
+    <ClInclude Include="Event\BossArrivedEventItem.h" />
+    <ClInclude Include="Event\BossDestroyedEventItem.h" />
     <ClInclude Include="Event\DeadOfPlayerEventItem.h" />
+    <ClInclude Include="Event\IBossMessage.h" />
     <ClInclude Include="Event\IDeadOfPlayerMessage.h" />
     <ClInclude Include="Event\EndOfEnemyWaveEventItem.h" />
     <ClInclude Include="Event\EnemyDestroyEventItem.h" />

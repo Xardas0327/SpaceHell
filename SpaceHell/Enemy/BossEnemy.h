@@ -3,6 +3,7 @@
 #include <Learning2DEngine/Animator/AnimationController.h>
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/Physics/BoxColliderComponent.h>
+#include <Learning2DEngine/EventSystem/EventHandler.h>
 
 #include "BaseEnemy.h"
 
@@ -33,6 +34,9 @@ protected:
 	void DieProcess();
 
 public:
+	Learning2DEngine::EventSystem::EventHandler<> onDead;
+	Learning2DEngine::EventSystem::EventHandler<> onArrived;
+
 	void Hit(int damage = 1) override;
 	void Kill() override;
 

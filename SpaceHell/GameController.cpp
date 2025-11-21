@@ -9,7 +9,6 @@
 #include <Learning2DEngine/UI/TextBoxComponent.h>
 
 #include "Buff/BuffSpawner.h"
-#include "Enemy/BossEnemy.h"
 
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
@@ -22,8 +21,9 @@ GameController::GameController(GameObject* gameObject)
     controlText(nullptr), pressText(nullptr), startText(nullptr), finishText(nullptr),
     gameOverText(nullptr), font("Assets/Fonts/arial.ttf", 24),
     refreshScoreEventItem(this), endOfWaveEventItem(this), deadOfPlayerEventItem(this),
+    bossArrivedEventItem(this), bossDestroyedEventItem(this),
     score(0), waveNumber(0), timer(0.0f), isWaveStarted(false), status(GameStatus::Menu),
-    playerStartPosition(0.0f, 0.0f)
+    playerStartPosition(0.0f, 0.0f), boss(nullptr)
 {
 
 }
@@ -251,7 +251,9 @@ void GameController::SpawnNextWave()
 
     if (waveNumber > WAVE_COUNT)
     {
-        BossEnemy::Create();
+        boss = BossEnemy::Create();
+        boss->onArrived.Add(&bossArrivedEventItem);
+        boss->onDead.Add(&bossDestroyedEventItem);
         return;
     }
 
@@ -475,6 +477,16 @@ void GameController::DeadOfPlayer()
     player->gameObject->isActive = false;
     pressText->isActive = true;
     gameOverText->isActive = true;
+}
+
+void GameController::OnBossArrived()
+{
+    boss->Kill();
+}
+
+void GameController::OnBossDestroyed()
+{
+    boss = nullptr;
 }
 
 void GameController::RefreshScore()

@@ -14,7 +14,8 @@ using namespace Learning2DEngine::Physics;
 
 BossEnemy::BossEnemy(GameObject* gameObject)
 	: BaseEnemy(gameObject, glm::vec2(0.0f, 1.0f), BOSS_SPEED, 1, 0, 0), Component(gameObject),
-	collider(nullptr), destructionAnimation(nullptr), isArrived(false), isDying(false), dyingTimer(0.0f)
+	collider(nullptr), destructionAnimation(nullptr), isArrived(false), isDying(false), dyingTimer(0.0f),
+	onDead(), onArrived()
 {
 }
 
@@ -80,6 +81,7 @@ void BossEnemy::MoveToPoint()
 	if (newPosition.y > ARRIVE_POINT_Y)
 	{
 		newPosition.y = ARRIVE_POINT_Y;
+		onArrived.Invoke();
 		isArrived = true;
 	}
 
@@ -95,6 +97,7 @@ void BossEnemy::DieProcess()
 	if (dyingTimer >= (BOSS_DESTRUCTION_NUMBER * BOSS_ANIMATION_SPEED))
 	{
 		isDying = false;
+		onDead.Invoke();
 		GameObjectManager::GetInstance().DestroyGameObject(gameObject);
 	}
 }

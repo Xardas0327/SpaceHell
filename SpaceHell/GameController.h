@@ -10,10 +10,13 @@
 
 #include "BackgroundController.h"
 #include "PlayerController.h"
+#include "Enemy/EnemySpawner.h"
 #include "Event/DeadOfPlayerEventItem.h"
 #include "Event/EnemyKilledByPlayerEvenItem.h"
 #include "Event/EndOfEnemyWaveEventItem.h"
-#include "Enemy/EnemySpawner.h"
+#include "Event/BossArrivedEventItem.h"
+#include "Event/BossDestroyedEventItem.h"
+#include "Enemy/BossEnemy.h"
 
 
 enum class GameStatus { Menu, Intro, Play, Ended };
@@ -27,7 +30,8 @@ constexpr const char* GAME_OVER_TEXT = "GAME OVER";
 constexpr const char* FINISH_TEXT = "YOU WIN!";
 
 class GameController : public Learning2DEngine::System::UpdaterComponent,
-	public IEnemyKilledByPlayerMessage, public IEndOfEnemyWaveMessage, public IDeadOfPlayerMessage
+	public IEnemyKilledByPlayerMessage, public IEndOfEnemyWaveMessage, public IDeadOfPlayerMessage,
+    public IBossMessage
 {
     friend class Learning2DEngine::System::GameObject;
 protected:
@@ -46,12 +50,15 @@ protected:
     EnemyKilledByPlayerEvenItem refreshScoreEventItem;
     EndOfEnemyWaveEventItem endOfWaveEventItem;
     DeadOfPlayerEventItem deadOfPlayerEventItem;
+    BossArrivedEventItem bossArrivedEventItem;
+    BossDestroyedEventItem bossDestroyedEventItem;
     int score;
     int waveNumber;
     float timer;
     bool isWaveStarted;
     GameStatus status;
     glm::vec2 playerStartPosition;
+    BossEnemy* boss;
 
     GameController(Learning2DEngine::System::GameObject* gameObject);
 
@@ -72,6 +79,8 @@ protected:
     void EnemyKilled(int point) override;
     void EndOfWave() override;
     void DeadOfPlayer() override;
+    void OnBossArrived() override;
+    void OnBossDestroyed() override;
     void RefreshScore();
     void RefreshWaves();
 };
