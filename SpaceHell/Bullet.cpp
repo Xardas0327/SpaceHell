@@ -8,6 +8,7 @@
 #include <Learning2DEngine/Render/SpriteRenderComponent.h>
 
 #include "Enemy/BaseEnemy.h"
+#include "Enemy/BossEnemy.h"
 #include "PlayerController.h"
 
 using namespace Learning2DEngine::Animator;
@@ -93,11 +94,20 @@ void Bullet::OnCollision(const Collision& collision)
         hitSomething = true;
     }
 
-    auto enemy = collision.collidedObject->GetComponent<BaseEnemy>();
-    if (enemy != nullptr)
+    auto boss = collision.collidedObject->GetComponent<BossEnemy>();
+    if (boss != nullptr)
     {
-        enemy->Hit(1);
+        boss->Kill();
         hitSomething = true;
+    }
+    else
+    {
+        auto enemy = collision.collidedObject->GetComponent<BaseEnemy>();
+        if (enemy != nullptr)
+        {
+            enemy->Hit(1);
+            hitSomething = true;
+        }
     }
 
     if (hitSomething)

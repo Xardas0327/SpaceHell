@@ -21,9 +21,9 @@ GameController::GameController(GameObject* gameObject)
     controlText(nullptr), pressText(nullptr), startText(nullptr), finishText(nullptr),
     gameOverText(nullptr), font("Assets/Fonts/arial.ttf", 24),
     refreshScoreEventItem(this), endOfWaveEventItem(this), deadOfPlayerEventItem(this),
-    bossArrivedEventItem(this), bossDestroyedEventItem(this),
+    bossArrivedEventItem(this), bossDestroyedEventItem(this), heroLeftEventItem(this),
     score(0), waveNumber(0), timer(0.0f), isWaveStarted(false), status(GameStatus::Menu),
-    playerStartPosition(0.0f, 0.0f), boss(nullptr)
+    playerStartPosition(0.0f, 0.0f), boss(nullptr), hero(nullptr)
 {
 
 }
@@ -176,7 +176,7 @@ void GameController::ShowControl()
 void GameController::ShowIntro()
 {
     status = GameStatus::Intro;
-    waveNumber = 0;
+    waveNumber = 10;
     RefreshWaves();
     score = 0;
     RefreshScore();
@@ -481,12 +481,20 @@ void GameController::DeadOfPlayer()
 
 void GameController::OnBossArrived()
 {
-    boss->Kill();
+    hero = HeroController::Create();
+    hero->onLeftMap.Add(&heroLeftEventItem);
 }
 
 void GameController::OnBossDestroyed()
 {
     boss = nullptr;
+    hero->StartToLeaveMap();
+}
+
+void GameController::OnHeroLeft()
+{
+    hero = nullptr;
+    ShowControl();
 }
 
 void GameController::RefreshScore()

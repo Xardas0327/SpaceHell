@@ -16,7 +16,9 @@
 #include "Event/EndOfEnemyWaveEventItem.h"
 #include "Event/BossArrivedEventItem.h"
 #include "Event/BossDestroyedEventItem.h"
+#include "Event/HeroLeftEventItem.h"
 #include "Enemy/BossEnemy.h"
+#include "HeroController.h"
 
 
 enum class GameStatus { Menu, Intro, Play, Ended };
@@ -31,7 +33,7 @@ constexpr const char* FINISH_TEXT = "YOU WIN!";
 
 class GameController : public Learning2DEngine::System::UpdaterComponent,
 	public IEnemyKilledByPlayerMessage, public IEndOfEnemyWaveMessage, public IDeadOfPlayerMessage,
-    public IBossMessage
+    public IBossMessage, IHeroLeftMessage
 {
     friend class Learning2DEngine::System::GameObject;
 protected:
@@ -52,6 +54,7 @@ protected:
     DeadOfPlayerEventItem deadOfPlayerEventItem;
     BossArrivedEventItem bossArrivedEventItem;
     BossDestroyedEventItem bossDestroyedEventItem;
+    HeroLeftEventItem heroLeftEventItem;
     int score;
     int waveNumber;
     float timer;
@@ -59,6 +62,7 @@ protected:
     GameStatus status;
     glm::vec2 playerStartPosition;
     BossEnemy* boss;
+    HeroController* hero;
 
     GameController(Learning2DEngine::System::GameObject* gameObject);
 
@@ -81,6 +85,7 @@ protected:
     void DeadOfPlayer() override;
     void OnBossArrived() override;
     void OnBossDestroyed() override;
+    void OnHeroLeft() override;
     void RefreshScore();
     void RefreshWaves();
 };
