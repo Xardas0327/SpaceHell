@@ -37,6 +37,8 @@ protected:
 	void CheckOutOfScreen();
 
 public:
+	bool isHeroBullet;
+
 	static Bullet* Create(
 		const glm::vec2& position,
 		const glm::vec2& scale,

@@ -54,7 +54,7 @@ void HeroController::MoveToPoint()
 
 void HeroController::Shoot()
 {
-	Bullet::Create(
+	auto bullet = Bullet::Create(
 		gameObject->transform.GetPosition() 
 			+ glm::vec2(gameObject->transform.GetScale().x - HERO_BULLET_SIZE.x, gameObject->transform.GetScale().y / 2.0f - HERO_BULLET_SIZE.y / 2.0f),
 		HERO_BULLET_SIZE,
@@ -65,6 +65,7 @@ void HeroController::Shoot()
 		PLAYER_BULLET_MASK,
 		HERO_BULLET_ANIMATION_NUMBER
 	);
+	bullet->isHeroBullet = true;
 }
 
 void HeroController::LeaveMap()

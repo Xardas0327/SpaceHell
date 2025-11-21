@@ -113,8 +113,7 @@ void GameController::InitTexts()
     //Finish Text
     auto finishGameObject = gameObjectManager.CreateGameObject(
         Transform(
-            glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 85.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 20.0f),
-            glm::vec2(1.5f, 1.5f)
+            glm::vec2(150.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 120.0f)
         )
     );
     finishText = finishGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font, FINISH_TEXT);
@@ -176,7 +175,7 @@ void GameController::ShowControl()
 void GameController::ShowIntro()
 {
     status = GameStatus::Intro;
-    waveNumber = 10;
+    waveNumber = 0;
     RefreshWaves();
     score = 0;
     RefreshScore();
@@ -493,8 +492,10 @@ void GameController::OnBossDestroyed()
 
 void GameController::OnHeroLeft()
 {
+    status = GameStatus::Ended;
     hero = nullptr;
-    ShowControl();
+    pressText->isActive = true;
+    finishText->isActive = true;
 }
 
 void GameController::RefreshScore()

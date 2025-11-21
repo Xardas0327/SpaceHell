@@ -29,7 +29,7 @@ constexpr const char* CONTROL_TEXT = "Control:\nMove - WASD or Arrows\nShoot - S
 constexpr const char* PRESS_TEXT = "Press ENTER";
 constexpr const char* START_TEXT = "The Akruh Empire attack our galaxy and\nthere is only ONE person, who can save us.\nBut the hero is out of office.\nSo...\nGood luck Rookie!";
 constexpr const char* GAME_OVER_TEXT = "GAME OVER";
-constexpr const char* FINISH_TEXT = "YOU WIN!";
+constexpr const char* FINISH_TEXT = "Have you heard?\nThe hero came back and killed\nthe leader of Akruh Empire!\nWe are saved again by the great hero!\nAnyway, where are you?\nA lot of paper work is waiting for you.";
 
 class GameController : public Learning2DEngine::System::UpdaterComponent,
 	public IEnemyKilledByPlayerMessage, public IEndOfEnemyWaveMessage, public IDeadOfPlayerMessage,

@@ -27,7 +27,8 @@ Bullet::Bullet(GameObject* gameObject,
     float animationFrameLength)
     : UpdaterComponent(gameObject), Component(gameObject),
     CircleColliderComponent(gameObject, bulletScale.x / 2.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER, glm::vec2(0.0f, 0.0f), mask),
-	direction(direction), speed(speed), textureId(textureId), animationLength(animationLength), animationFrameLength(animationFrameLength)
+	direction(direction), speed(speed), textureId(textureId), animationLength(animationLength), animationFrameLength(animationFrameLength),
+    isHeroBullet(false)
 {
 
 }
@@ -95,7 +96,7 @@ void Bullet::OnCollision(const Collision& collision)
     }
 
     auto boss = collision.collidedObject->GetComponent<BossEnemy>();
-    if (boss != nullptr)
+    if (isHeroBullet && boss != nullptr)
     {
         boss->Kill();
         hitSomething = true;
