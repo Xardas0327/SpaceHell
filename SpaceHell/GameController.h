@@ -6,7 +6,7 @@
 #include <Learning2DEngine/System/UpdaterComponent.h>
 #include <Learning2DEngine/UI/FontSizePair.h>
 #include <Learning2DEngine/Object/FpsShower.h>
-#include <Learning2DEngine/UI/SimpleText2DRenderComponent.h>
+#include <Learning2DEngine/UI/Text2DRenderComponent.h>
 
 #include "BackgroundController.h"
 #include "PlayerController.h"
@@ -41,13 +41,13 @@ protected:
     PlayerController* player;
     BackgroundController* backgroundController;
     EnemySpawner* enemySpawner;
-    Learning2DEngine::UI::SimpleText2DRenderComponent* scoreText;
-    Learning2DEngine::UI::SimpleText2DRenderComponent* waveText;
-    Learning2DEngine::UI::SimpleText2DRenderComponent* controlText;
-    Learning2DEngine::UI::SimpleText2DRenderComponent* pressText;
-    Learning2DEngine::UI::SimpleText2DRenderComponent* startText;
-    Learning2DEngine::UI::SimpleText2DRenderComponent* finishText;
-    Learning2DEngine::UI::SimpleText2DRenderComponent* gameOverText;
+    Learning2DEngine::UI::Text2DRenderComponent* scoreText;
+    Learning2DEngine::UI::Text2DRenderComponent* waveText;
+    Learning2DEngine::UI::Text2DRenderComponent* controlText;
+    Learning2DEngine::UI::Text2DRenderComponent* pressText;
+    Learning2DEngine::UI::Text2DRenderComponent* startText;
+    Learning2DEngine::UI::Text2DRenderComponent* finishText;
+    Learning2DEngine::UI::Text2DRenderComponent* gameOverText;
     const Learning2DEngine::UI::FontSizePair font;
     EnemyKilledByPlayerEvenItem refreshScoreEventItem;
     EndOfEnemyWaveEventItem endOfWaveEventItem;
