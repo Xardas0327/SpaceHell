@@ -6,8 +6,8 @@
 #include <Learning2DEngine/System/UpdaterComponent.h>
 #include <Learning2DEngine/EventSystem/EventHandler.h>
 
-#include "EnemyDestroyEventItem.h"
-#include "EnemyKilledByPlayerEvenItem.h"
+#include "../Event/EnemyDestroyEventItem.h"
+#include "../Event/EnemyKilledByPlayerEvenItem.h"
 #include "EnemySpawnerItem.h"
 #include "BaseEnemy.h"
 

@@ -21,8 +21,9 @@ GameController::GameController(GameObject* gameObject)
     controlText(nullptr), pressText(nullptr), startText(nullptr), finishText(nullptr),
     gameOverText(nullptr), font("Assets/Fonts/arial.ttf", 24),
     refreshScoreEventItem(this), endOfWaveEventItem(this), deadOfPlayerEventItem(this),
+    bossArrivedEventItem(this), bossDestroyedEventItem(this), heroLeftEventItem(this),
     score(0), waveNumber(0), timer(0.0f), isWaveStarted(false), status(GameStatus::Menu),
-    playerStartPosition(0.0f, 0.0f)
+    playerStartPosition(0.0f, 0.0f), boss(nullptr), hero(nullptr)
 {
 
 }
@@ -69,7 +70,7 @@ void GameController::InitTexts()
             glm::vec2(10.0f, 10.0f)
         )
     );
-    scoreText = scoreGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font);
+    scoreText = scoreGameObject->AddComponent<Text2DRenderComponent>(RendererMode::LATERENDER, font);
 
     //Waves Text
     auto wavesGameObject = gameObjectManager.CreateGameObject(
@@ -77,7 +78,7 @@ void GameController::InitTexts()
             glm::vec2(Game::mainCamera.GetResolution().GetWidth() - 175.0f, 10.0f)
         )
     );
-    waveText = wavesGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font);
+    waveText = wavesGameObject->AddComponent<Text2DRenderComponent>(RendererMode::LATERENDER, font);
 
     //Control Text
     auto controlGameObject = gameObjectManager.CreateGameObject(
@@ -85,7 +86,7 @@ void GameController::InitTexts()
             glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 125.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 100.0f)
         )
     );
-    controlText = controlGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font, CONTROL_TEXT);
+    controlText = controlGameObject->AddComponent<Text2DRenderComponent>(RendererMode::LATERENDER, font, CONTROL_TEXT);
     auto controlBox = controlGameObject->AddComponent<TextBoxComponent>(*controlText, TextBoxMode::SIMPLE, -1, glm::vec4(0.1f, 0.1f, 0.1f, 0.9f));
     controlBox->SetPadding(10.0f);
 
@@ -95,7 +96,7 @@ void GameController::InitTexts()
             glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 75.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f + 30.0f)
         )
     );
-    pressText = pressGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font, PRESS_TEXT);
+    pressText = pressGameObject->AddComponent<Text2DRenderComponent>(RendererMode::LATERENDER, font, PRESS_TEXT);
     auto pressBox = pressGameObject->AddComponent<TextBoxComponent>(*pressText, TextBoxMode::SIMPLE, -1, glm::vec4(0.1f, 0.1f, 0.1f, 0.9f));
     pressBox->SetPadding(10.0f);
 
@@ -105,18 +106,17 @@ void GameController::InitTexts()
             glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 225.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 100.0f)
         )
     );
-    startText = startGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font, START_TEXT);
+    startText = startGameObject->AddComponent<Text2DRenderComponent>(RendererMode::LATERENDER, font, START_TEXT);
     auto startBox = startGameObject->AddComponent<TextBoxComponent>(*startText, TextBoxMode::SIMPLE, -1, glm::vec4(0.1f, 0.1f, 0.1f, 0.9f));
     startBox->SetPadding(10.0f);
 
     //Finish Text
     auto finishGameObject = gameObjectManager.CreateGameObject(
         Transform(
-            glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 85.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 20.0f),
-            glm::vec2(1.5f, 1.5f)
+            glm::vec2(150.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 120.0f)
         )
     );
-    finishText = finishGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font, FINISH_TEXT);
+    finishText = finishGameObject->AddComponent<Text2DRenderComponent>(RendererMode::LATERENDER, font, FINISH_TEXT);
     auto finish = finishGameObject->AddComponent<TextBoxComponent>(*finishText, TextBoxMode::SIMPLE, -1, glm::vec4(0.1f, 0.1f, 0.1f, 0.9f));
     finish->SetPadding(10.0f);
 
@@ -127,7 +127,7 @@ void GameController::InitTexts()
             glm::vec2(1.5f, 1.5f)
         )
     );
-    gameOverText = gameOverGameObject->AddComponent<SimpleText2DRenderComponent>(RendererMode::LATERENDER, font, GAME_OVER_TEXT);
+    gameOverText = gameOverGameObject->AddComponent<Text2DRenderComponent>(RendererMode::LATERENDER, font, GAME_OVER_TEXT);
     auto gameOver = gameOverGameObject->AddComponent<TextBoxComponent>(*gameOverText, TextBoxMode::SIMPLE, -1, glm::vec4(0.1f, 0.1f, 0.1f, 0.9f));
     gameOver->SetPadding(10.0f);
 
@@ -158,7 +158,6 @@ void GameController::ShowControl()
     status = GameStatus::Menu;
     enemySpawner->StopSpawning();
     enemySpawner->ClearSpawnedEnemies();
-    BuffSpawner::GetInstance().ClearActiveBuffs();
     controlText->isActive = true;
     pressText->isActive = true;
     startText->isActive = false;
@@ -167,6 +166,10 @@ void GameController::ShowControl()
     player->SetFrozen(true);
     player->Reset(playerStartPosition);
     player->gameObject->isActive = true;
+
+    auto& buffSpawner = BuffSpawner::GetInstance();
+    buffSpawner.ClearActiveBuffs();
+    buffSpawner.ResetLimits();
 }
 
 void GameController::ShowIntro()
@@ -242,11 +245,16 @@ void GameController::RunTimer()
 
 void GameController::SpawnNextWave()
 {
-    if (waveNumber >= WAVE_COUNT)
-        return;
-
     ++waveNumber;
     RefreshWaves();
+
+    if (waveNumber > WAVE_COUNT)
+    {
+        boss = BossEnemy::Create();
+        boss->onArrived.Add(&bossArrivedEventItem);
+        boss->onDead.Add(&bossDestroyedEventItem);
+        return;
+    }
 
     switch (waveNumber)
     {
@@ -459,15 +467,7 @@ void GameController::EnemyKilled(int point)
 
 void GameController::EndOfWave()
 {
-    if (waveNumber < WAVE_COUNT)
-        StartTimer();
-    else
-    {
-        status = GameStatus::Ended;
-        finishText->isActive = true;
-        pressText->isActive = true;
-        player->SetFrozen(true);
-    }
+    StartTimer();
 }
 
 void GameController::DeadOfPlayer()
@@ -476,6 +476,26 @@ void GameController::DeadOfPlayer()
     player->gameObject->isActive = false;
     pressText->isActive = true;
     gameOverText->isActive = true;
+}
+
+void GameController::OnBossArrived()
+{
+    hero = HeroController::Create();
+    hero->onLeftMap.Add(&heroLeftEventItem);
+}
+
+void GameController::OnBossDestroyed()
+{
+    boss = nullptr;
+    hero->StartToLeaveMap();
+}
+
+void GameController::OnHeroLeft()
+{
+    status = GameStatus::Ended;
+    hero = nullptr;
+    pressText->isActive = true;
+    finishText->isActive = true;
 }
 
 void GameController::RefreshScore()

@@ -7,6 +7,7 @@
 
 #include "Bullet.h"
 #include "Enemy/BaseEnemy.h"
+#include "Enemy/BossEnemy.h"
 
 using namespace Learning2DEngine::Animator;
 using namespace Learning2DEngine::Physics;
@@ -85,6 +86,10 @@ void PlayerController::Destroy()
 
 void PlayerController::OnCollision(const Collision& collision)
 {
+    auto boss = collision.collidedObject->GetComponent<BossEnemy>();
+    if (boss != nullptr)
+        return;
+
     auto enemy = collision.collidedObject->GetComponent<BaseEnemy>();
     if (enemy != nullptr)
     {
