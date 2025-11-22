@@ -1,6 +1,7 @@
 #include "DiskEnemy.h"
 
 #include <Learning2DEngine/Animator/AnimationController.h>
+#include <Learning2DEngine/System/Game.h>
 #include <Learning2DEngine/System/ResourceManager.h>
 #include <Learning2DEngine/System/Time.h>
 #include <Learning2DEngine/Render/SpriteRenderComponent.h>
