@@ -36,12 +36,19 @@ void GameController::Init()
 
     InitTexts();
 
+    // Sounds
+    soundEngine = createIrrKlangDevice();
+
+    // I have to load a sound, because it gets stuck a bit on the first sound.
+    backgroundMusic = soundEngine->play2D("Assets/Sounds/8-bit-space-cuted.mp3", false, false, true);
+    StopBackgroundMusic();
+
     //Player
     playerStartPosition = glm::vec2(
         Game::mainCamera.GetResolution().GetWidth() / 2.0f - PLAYER_SIZE.x,
         Game::mainCamera.GetResolution().GetHeight() - 100.0f
     );
-    player = PlayerController::Create(playerStartPosition);
+    player = PlayerController::Create(playerStartPosition, soundEngine);
     player->onDead.Add(&deadOfPlayerEventItem);
 
     //Background
@@ -58,15 +65,8 @@ void GameController::Init()
     enemySpawner = GameObjectManager::GetInstance().CreateGameObject()->AddComponent<EnemySpawner>();
     enemySpawner->destroyedAllEnemies.Add(&endOfWaveEventItem);
     enemySpawner->refreshScore.Add(&refreshScoreEventItem);
+    enemySpawner->SetSoundEngine(soundEngine);
 
-
-
-    // Sounds
-    soundEngine = createIrrKlangDevice();
-
-    // I have to load a sound, because it gets stuck a bit on the first sound.
-    backgroundMusic = soundEngine->play2D("Assets/Sounds/8-bit-space-cuted.mp3", false, false, true);
-    StopBackgroundMusic();
     
     ShowControl();
 }

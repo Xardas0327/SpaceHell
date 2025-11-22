@@ -13,13 +13,15 @@ using namespace Learning2DEngine::Animator;
 using namespace Learning2DEngine::Physics;
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
+using namespace irrklang;
 
-PlayerController::PlayerController(GameObject* gameObject)
+PlayerController::PlayerController(GameObject* gameObject, ISoundEngine* soundEngine)
     : UpdaterComponent(gameObject), Component(gameObject),
     CircleColliderComponent(gameObject, PLAYER_SIZE.x / 2.0f, ColliderType::DYNAMIC, ColliderMode::TRIGGER, PLAYER_COllIDER_OFFSET, PLAYER_COLLER_MASK),
     sprite(nullptr), shieldSprite(nullptr), shieldAnimation(nullptr),
     isFrozen(true), reloadTimer(0.0f), bulletNumber(PLAYER_BULLET_DEFAULT_NUMBER), maxBulletNumber(PLAYER_BULLET_DEFAULT_NUMBER),
-	life(PLAYER_DEFAULT_LIFE), speed(PLAYER_DEFAULT_SPEED), isImmortal(false), immortalTimer(0.0f), onDead()
+	life(PLAYER_DEFAULT_LIFE), speed(PLAYER_DEFAULT_SPEED), isImmortal(false), immortalTimer(0.0f),
+    soundEngine(soundEngine), onDead()
 {
 
 }
@@ -188,6 +190,7 @@ void PlayerController::Shoot()
             PLAYER_BULLET_MASK,
             1
         );
+        soundEngine->play2D("Assets/Sounds/player_shoot.mp3");
 
         --bulletNumber;
     }
@@ -249,9 +252,9 @@ void PlayerController::IncreaseSpeed(float increase)
     speed += increase;
 }
 
-PlayerController* PlayerController::Create(const glm::vec2& position)
+PlayerController* PlayerController::Create(const glm::vec2& position, ISoundEngine* soundEngine)
 {
     auto object = GameObjectManager::GetInstance().CreateGameObject(Transform(position));
 
-    return object->AddComponent<PlayerController>();
+    return object->AddComponent<PlayerController>(soundEngine);
 }

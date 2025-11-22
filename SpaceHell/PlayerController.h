@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <irrklang/irrKlang.h>
 
 #include <Learning2DEngine/Animator/AnimationController.h>
 #include <Learning2DEngine/System/GameObject.h>
@@ -40,8 +41,9 @@ protected:
     float speed;
     bool isImmortal;
     float immortalTimer;
+    irrklang::ISoundEngine* soundEngine;
 
-    PlayerController(Learning2DEngine::System::GameObject* gameObject);
+    PlayerController(Learning2DEngine::System::GameObject* gameObject, irrklang::ISoundEngine* soundEngine);
 
     void Init() override;
     void Update() override;
@@ -65,6 +67,6 @@ public:
 	void IncreaseMaxBulletNumber(int increase);
 	void IncreaseSpeed(float increase);
 
-	static PlayerController* Create(const glm::vec2& position);
+	static PlayerController* Create(const glm::vec2& position, irrklang::ISoundEngine* soundEngine);
 };
 
