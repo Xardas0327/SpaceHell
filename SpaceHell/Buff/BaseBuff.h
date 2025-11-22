@@ -11,6 +11,8 @@
 
 #include "BuffType.h"
 
+constexpr glm::vec2 BUFF_SIZE(32.0f, 32.0f);
+
 class BaseBuff : public Learning2DEngine::System::LateUpdaterComponent,
 					public Learning2DEngine::Physics::CircleColliderComponent
 {

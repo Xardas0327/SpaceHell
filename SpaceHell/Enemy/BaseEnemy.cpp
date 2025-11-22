@@ -4,6 +4,7 @@
 #include <Learning2DEngine/System/GameObjectManager.h>
 
 #include "../Buff/BuffSpawner.h"
+#include "../Explosion.h"
 
 using namespace Learning2DEngine::System;
 
@@ -30,12 +31,14 @@ void BaseEnemy::Hit(int damage)
 	if (life <= 0)
 	{
 		onKilled.Invoke(point);
-		BuffSpawner::GetInstance().SpawnBuff(gameObject->transform.GetPosition(), buffSpawnPercentage);
+		Explosion::Create(gameObject->transform.GetPosition());
+		BuffSpawner::GetInstance().SpawnBuff(gameObject->transform.GetPosition() + gameObject->transform.GetScale() / 2.0f, buffSpawnPercentage);
 		GameObjectManager::GetInstance().DestroyGameObject(gameObject);
 	}
 }
 
 void BaseEnemy::Kill()
 {
+	Explosion::Create(gameObject->transform.GetPosition());
 	GameObjectManager::GetInstance().DestroyGameObject(gameObject);
 }

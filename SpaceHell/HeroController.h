@@ -4,7 +4,6 @@
 
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/System/UpdaterComponent.h>
-#include <Learning2DEngine/Render/SpriteRenderComponent.h>
 #include <Learning2DEngine/EventSystem/EventHandler.h>
 
 constexpr glm::vec2 HERO_SIZE(128.0f, 128.0f);

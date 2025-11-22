@@ -43,6 +43,18 @@ void SpaceHell::Init()
     resourceManager.LoadTextureFromFile("DiskEnemy", "Assets/Images/Enemy/Disk.png", Texture2DSettings(true));
     resourceManager.LoadTextureFromFile("BossEnemy", "Assets/Images/Enemy/Boss.png", Texture2DSettings(true));
 
+    resourceManager.LoadTextureFromFile("Explosion1", "Assets/Images/Explosion/Explosion2_1.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion2", "Assets/Images/Explosion/Explosion2_2.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion3", "Assets/Images/Explosion/Explosion2_3.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion4", "Assets/Images/Explosion/Explosion2_4.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion5", "Assets/Images/Explosion/Explosion2_5.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion6", "Assets/Images/Explosion/Explosion2_6.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion7", "Assets/Images/Explosion/Explosion2_7.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion8", "Assets/Images/Explosion/Explosion2_8.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion9", "Assets/Images/Explosion/Explosion2_9.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion10", "Assets/Images/Explosion/Explosion2_10.png", Texture2DSettings(true));
+    resourceManager.LoadTextureFromFile("Explosion11", "Assets/Images/Explosion/Explosion2_11.png", Texture2DSettings(true));
+
     //GameController
     auto gameController = GameObjectManager::GetInstance().CreateGameObject();
     gameController->AddComponent<GameController>();

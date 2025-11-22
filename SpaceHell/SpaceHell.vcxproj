@@ -164,6 +164,7 @@
     <ClCompile Include="Buff\BuffSpawner.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Enemy\BaseEnemy.cpp" />
+    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="HeroController.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Event\IEndOfEnemyWaveMessage.h" />
     <ClInclude Include="Event\IEnemyDestroyMessage.h" />
     <ClInclude Include="Event\IEnemyKilledByPlayerMessage.h" />
+    <ClInclude Include="Explosion.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="HeroController.h" />
     <ClInclude Include="PlayerController.h" />
@@ -228,6 +230,17 @@
     <Image Include="Assets\Images\Enemy\Scout.png" />
     <Image Include="Assets\Images\Enemy\Speedy.png" />
     <Image Include="Assets\Images\Enemy\SpeedyShield.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_1.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_10.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_11.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_2.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_3.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_4.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_5.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_6.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_7.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_8.png" />
+    <Image Include="Assets\Images\Explosion\Explosion2_9.png" />
     <Image Include="Assets\Images\Player\Hero.png" />
     <Image Include="Assets\Images\Player\PlayerShip.png" />
     <Image Include="Assets\Images\Player\Shield.png" />
