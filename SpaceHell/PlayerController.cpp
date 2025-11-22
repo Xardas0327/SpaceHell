@@ -8,6 +8,7 @@
 #include "Bullet.h"
 #include "Enemy/BaseEnemy.h"
 #include "Enemy/BossEnemy.h"
+#include "Explosion.h"
 
 using namespace Learning2DEngine::Animator;
 using namespace Learning2DEngine::Physics;
@@ -30,8 +31,6 @@ void PlayerController::Init()
 {
     UpdaterComponent::Init();
     CircleColliderComponent::Init();
-
-    gameObject->transform.SetScale(PLAYER_SIZE);
 
     sprite = gameObject->AddComponent<SpriteRenderComponent>(
         RendererMode::RENDER,
@@ -220,6 +219,7 @@ void PlayerController::Hit(int damage)
 
     if(life <= 0)
     {
+        Explosion::Create(gameObject->transform.GetPosition());
         onDead.Invoke();
         return;
     }
@@ -254,7 +254,7 @@ void PlayerController::IncreaseSpeed(float increase)
 
 PlayerController* PlayerController::Create(const glm::vec2& position, ISoundEngine* soundEngine)
 {
-    auto object = GameObjectManager::GetInstance().CreateGameObject(Transform(position));
+    auto object = GameObjectManager::GetInstance().CreateGameObject(Transform(position, PLAYER_SIZE));
 
     return object->AddComponent<PlayerController>(soundEngine);
 }

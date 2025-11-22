@@ -32,7 +32,7 @@ void BaseBuff::Init()
 	LateUpdaterComponent::Init();
 	CircleColliderComponent::Init();
 
-	gameObject->transform.SetScale(glm::vec2(32.0f, 32.0f));
+	gameObject->transform.SetScale(BUFF_SIZE);
 
 	auto& texture = ResourceManager::GetInstance().GetTexture(textureId);
 

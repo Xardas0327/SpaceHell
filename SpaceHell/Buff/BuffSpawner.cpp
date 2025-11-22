@@ -67,16 +67,18 @@ BaseBuff* BuffSpawner::SpawnBuff(const glm::vec2& position, int percentage)
 
 	BaseBuff* buff = nullptr;
 
+	auto fixedPosition = position - BUFF_SIZE / 2.0f;
+
 	switch (availableBuffs[index])
 	{
 	case BuffType::Shield:
-		buff = ShieldBuff::Create(position);
+		buff = ShieldBuff::Create(fixedPosition);
 		break;
 	case BuffType::Speed:
-		buff = SpeedBuff::Create(position);
+		buff = SpeedBuff::Create(fixedPosition);
 		break;
 	case BuffType::Weapon:
-		buff = WeaponBuff::Create(position);
+		buff = WeaponBuff::Create(fixedPosition);
 		break;
 	default:
 		break;
