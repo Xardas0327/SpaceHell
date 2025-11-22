@@ -19,7 +19,7 @@ GameController::GameController(GameObject* gameObject)
     : UpdaterComponent(gameObject), Component(gameObject), fpsShower(nullptr), player(nullptr),
     backgroundController(nullptr), enemySpawner(nullptr), scoreText(nullptr), waveText(nullptr),
     controlText(nullptr), pressText(nullptr), startText(nullptr), finishText(nullptr),
-    gameOverText(nullptr), font("Assets/Fonts/arial.ttf", 24),
+    gameOverText(nullptr), font("Assets/Fonts/Pix32.ttf", 24),
     refreshScoreEventItem(this), endOfWaveEventItem(this), deadOfPlayerEventItem(this),
     bossArrivedEventItem(this), bossDestroyedEventItem(this), heroLeftEventItem(this),
     score(0), waveNumber(0), timer(0.0f), isWaveStarted(false), status(GameStatus::Menu),
@@ -113,7 +113,7 @@ void GameController::InitTexts()
     //Finish Text
     auto finishGameObject = gameObjectManager.CreateGameObject(
         Transform(
-            glm::vec2(150.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 120.0f)
+            glm::vec2(150.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 130.0f)
         )
     );
     finishText = finishGameObject->AddComponent<Text2DRenderComponent>(RendererMode::LATERENDER, font, FINISH_TEXT);
@@ -123,7 +123,7 @@ void GameController::InitTexts()
     //Game Over Text
     auto gameOverGameObject = gameObjectManager.CreateGameObject(
         Transform(
-            glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 110.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 20.0f),
+            glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 90.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 20.0f),
             glm::vec2(1.5f, 1.5f)
         )
     );
