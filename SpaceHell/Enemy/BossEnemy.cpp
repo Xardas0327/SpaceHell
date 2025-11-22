@@ -11,11 +11,12 @@ using namespace Learning2DEngine::Animator;
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 using namespace Learning2DEngine::Physics;
+using namespace irrklang;
 
-BossEnemy::BossEnemy(GameObject* gameObject)
+BossEnemy::BossEnemy(GameObject* gameObject, ISoundEngine* soundEngine)
 	: BaseEnemy(gameObject, glm::vec2(0.0f, 1.0f), BOSS_SPEED, 1, 0, 0), Component(gameObject),
 	collider(nullptr), destructionAnimation(nullptr), isArrived(false), isDying(false), dyingTimer(0.0f),
-	onDead(), onArrived()
+	soundEngine(soundEngine), onDead(), onArrived()
 {
 }
 
@@ -112,9 +113,10 @@ void BossEnemy::Kill()
 	destructionAnimation->Play();
 	isDying = true;
 	collider->isActive = false;
+	soundEngine->play2D("Assets/Sounds/8bit_expl_long_02.wav");
 }
 
-BossEnemy* BossEnemy::Create()
+BossEnemy* BossEnemy::Create(ISoundEngine* soundEngine)
 {
 	auto go = GameObjectManager::GetInstance().CreateGameObject(
 		Transform(
@@ -126,5 +128,5 @@ BossEnemy* BossEnemy::Create()
 			180.0f
 		)
 	);
-	return go->AddComponent<BossEnemy>();
+	return go->AddComponent<BossEnemy>(soundEngine);
 }

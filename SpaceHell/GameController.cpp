@@ -160,7 +160,9 @@ void GameController::Update()
 
 void GameController::Destroy()
 {
+    enemySpawner->StopSpawning();
     enemySpawner->ClearSpawnedEnemies();
+    soundEngine->drop();
     UpdaterComponent::Destroy();
 }
 
@@ -264,7 +266,7 @@ void GameController::SpawnNextWave()
 
     if (waveNumber > WAVE_COUNT)
     {
-        boss = BossEnemy::Create();
+        boss = BossEnemy::Create(soundEngine);
         boss->onArrived.Add(&bossArrivedEventItem);
         boss->onDead.Add(&bossDestroyedEventItem);
         return;
@@ -494,7 +496,7 @@ void GameController::DeadOfPlayer()
 
 void GameController::OnBossArrived()
 {
-    hero = HeroController::Create();
+    hero = HeroController::Create(soundEngine);
     hero->onLeftMap.Add(&heroLeftEventItem);
 }
 

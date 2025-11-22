@@ -9,10 +9,12 @@
 
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
+using namespace irrklang;
 
-HeroController::HeroController(GameObject* gameObject)
+HeroController::HeroController(GameObject* gameObject, ISoundEngine* soundEngine)
 	: UpdaterComponent(gameObject), Component(gameObject),
-	isArrived(false), isLeaving(false), direction(1.0f, 0.0f), onLeftMap()
+	isArrived(false), isLeaving(false), direction(1.0f, 0.0f), 
+	soundEngine(soundEngine), onLeftMap()
 {
 
 }
@@ -66,6 +68,7 @@ void HeroController::Shoot()
 		HERO_BULLET_ANIMATION_NUMBER
 	);
 	bullet->isHeroBullet = true;
+	soundEngine->play2D("Assets/Sounds/hero_shoot.mp3");
 }
 
 void HeroController::LeaveMap()
@@ -90,7 +93,7 @@ void HeroController::StartToLeaveMap()
 	isLeaving = true;
 }
 
-HeroController* HeroController::Create()
+HeroController* HeroController::Create(ISoundEngine* soundEngine)
 {
 	auto go = GameObjectManager::GetInstance().CreateGameObject(
 		Transform(
@@ -100,5 +103,5 @@ HeroController* HeroController::Create()
 		)
 	);
 
-	return go->AddComponent<HeroController>();
+	return go->AddComponent<HeroController>(soundEngine);
 }

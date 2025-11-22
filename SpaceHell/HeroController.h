@@ -1,5 +1,7 @@
 #pragma once
 
+#include <irrklang/irrKlang.h>
+
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/System/UpdaterComponent.h>
 #include <Learning2DEngine/Render/SpriteRenderComponent.h>
@@ -19,8 +21,9 @@ protected:
     bool isArrived;
     bool isLeaving;
     glm::vec2 direction;
+    irrklang::ISoundEngine* soundEngine;
 
-    HeroController(Learning2DEngine::System::GameObject* gameObject);
+    HeroController(Learning2DEngine::System::GameObject* gameObject, irrklang::ISoundEngine* soundEngine);
 
     void Init() override;
     void Update() override;
@@ -34,6 +37,6 @@ public:
 
     void StartToLeaveMap();
 
-    static HeroController* Create();
+    static HeroController* Create(irrklang::ISoundEngine* soundEngine);
 };
 
