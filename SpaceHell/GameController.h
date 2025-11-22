@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <irrklang/irrKlang.h>
 
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/System/UpdaterComponent.h>
@@ -63,6 +64,8 @@ protected:
     glm::vec2 playerStartPosition;
     BossEnemy* boss;
     HeroController* hero;
+    irrklang::ISoundEngine* soundEngine;
+    irrklang::ISound* backgroundMusic;
 
     GameController(Learning2DEngine::System::GameObject* gameObject);
 
@@ -88,5 +91,6 @@ protected:
     void OnHeroLeft() override;
     void RefreshScore();
     void RefreshWaves();
+    void StopBackgroundMusic();
 };
 

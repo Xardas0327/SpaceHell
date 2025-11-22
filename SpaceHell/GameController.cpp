@@ -14,6 +14,7 @@ using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 using namespace Learning2DEngine::Object;
 using namespace Learning2DEngine::UI;
+using namespace irrklang;
 
 GameController::GameController(GameObject* gameObject)
     : UpdaterComponent(gameObject), Component(gameObject), fpsShower(nullptr), player(nullptr),
@@ -23,7 +24,8 @@ GameController::GameController(GameObject* gameObject)
     refreshScoreEventItem(this), endOfWaveEventItem(this), deadOfPlayerEventItem(this),
     bossArrivedEventItem(this), bossDestroyedEventItem(this), heroLeftEventItem(this),
     score(0), waveNumber(0), timer(0.0f), isWaveStarted(false), status(GameStatus::Menu),
-    playerStartPosition(0.0f, 0.0f), boss(nullptr), hero(nullptr)
+    playerStartPosition(0.0f, 0.0f), boss(nullptr), hero(nullptr),
+    soundEngine(nullptr), backgroundMusic(nullptr)
 {
 
 }
@@ -57,6 +59,15 @@ void GameController::Init()
     enemySpawner->destroyedAllEnemies.Add(&endOfWaveEventItem);
     enemySpawner->refreshScore.Add(&refreshScoreEventItem);
 
+
+
+    // Sounds
+    soundEngine = createIrrKlangDevice();
+
+    // I have to load a sound, because it gets stuck a bit on the first sound.
+    backgroundMusic = soundEngine->play2D("Assets/Sounds/8-bit-space-cuted.mp3", false, false, true);
+    StopBackgroundMusic();
+    
     ShowControl();
 }
 
@@ -170,6 +181,8 @@ void GameController::ShowControl()
     auto& buffSpawner = BuffSpawner::GetInstance();
     buffSpawner.ClearActiveBuffs();
     buffSpawner.ResetLimits();
+
+    StopBackgroundMusic();
 }
 
 void GameController::ShowIntro()
@@ -190,6 +203,7 @@ void GameController::StartGame()
     startText->isActive = false;
     StartTimer();
     player->SetFrozen(false);
+    backgroundMusic = soundEngine->play2D("Assets/Sounds/8-bit-space-cuted.mp3", true, false, true);
 }
 
 void GameController::CheckKeyboard()
@@ -510,4 +524,14 @@ void GameController::RefreshWaves()
         waveStr += "?";
 
     waveText->data.SetText("Waves: " + waveStr + "/" + std::to_string(WAVE_COUNT));
+}
+
+void GameController::StopBackgroundMusic()
+{
+    if (backgroundMusic)
+    {
+        backgroundMusic->stop();
+        backgroundMusic->drop();
+        backgroundMusic = nullptr;
+    }
 }
