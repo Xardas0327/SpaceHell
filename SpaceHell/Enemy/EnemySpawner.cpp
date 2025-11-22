@@ -4,11 +4,12 @@
 #include <Learning2DEngine/System/Time.h>
 
 using namespace Learning2DEngine::System;
+using namespace irrklang;
 
 EnemySpawner::EnemySpawner(GameObject* gameObject)
 	: UpdaterComponent(gameObject), Component(gameObject),
 	enemies(), spawnedEnemy(), isRunning(false), currentEnemyIndex(0), timer(0.0f), waveEnemyNumber(0),
-	enemyDestroyEventItem(this), enemyKilledByPlayerEvenItem(this)
+	enemyDestroyEventItem(this), enemyKilledByPlayerEvenItem(this), soundEngine(nullptr)
 {
 }
 
@@ -41,7 +42,7 @@ void EnemySpawner::Spawn()
 	switch (enemies[currentEnemyIndex].type)
 	{
 	case EnemySpawnerItemType::Fighter:
-		enemy = FighterEnemy::Create(enemies[currentEnemyIndex].position);
+		enemy = FighterEnemy::Create(enemies[currentEnemyIndex].position, soundEngine);
 		break;
 	case EnemySpawnerItemType::ScoutLeft:
 		enemy = ScoutEnemy::Create(enemies[currentEnemyIndex].position, ScoutState::MOVING_LEFT);

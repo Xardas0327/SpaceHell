@@ -14,16 +14,18 @@ using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 using namespace Learning2DEngine::Object;
 using namespace Learning2DEngine::UI;
+using namespace irrklang;
 
 GameController::GameController(GameObject* gameObject)
     : UpdaterComponent(gameObject), Component(gameObject), fpsShower(nullptr), player(nullptr),
     backgroundController(nullptr), enemySpawner(nullptr), scoreText(nullptr), waveText(nullptr),
     controlText(nullptr), pressText(nullptr), startText(nullptr), finishText(nullptr),
-    gameOverText(nullptr), font("Assets/Fonts/arial.ttf", 24),
+    gameOverText(nullptr), font("Assets/Fonts/Pix32.ttf", 24),
     refreshScoreEventItem(this), endOfWaveEventItem(this), deadOfPlayerEventItem(this),
     bossArrivedEventItem(this), bossDestroyedEventItem(this), heroLeftEventItem(this),
     score(0), waveNumber(0), timer(0.0f), isWaveStarted(false), status(GameStatus::Menu),
-    playerStartPosition(0.0f, 0.0f), boss(nullptr), hero(nullptr)
+    playerStartPosition(0.0f, 0.0f), boss(nullptr), hero(nullptr),
+    soundEngine(nullptr), backgroundMusic(nullptr)
 {
 
 }
@@ -34,12 +36,19 @@ void GameController::Init()
 
     InitTexts();
 
+    // Sounds
+    soundEngine = createIrrKlangDevice();
+
+    // I have to load a sound, because it gets stuck a bit on the first sound.
+    backgroundMusic = soundEngine->play2D("Assets/Sounds/8-bit-space-cuted.mp3", false, false, true);
+    StopBackgroundMusic();
+
     //Player
     playerStartPosition = glm::vec2(
         Game::mainCamera.GetResolution().GetWidth() / 2.0f - PLAYER_SIZE.x,
         Game::mainCamera.GetResolution().GetHeight() - 100.0f
     );
-    player = PlayerController::Create(playerStartPosition);
+    player = PlayerController::Create(playerStartPosition, soundEngine);
     player->onDead.Add(&deadOfPlayerEventItem);
 
     //Background
@@ -56,7 +65,9 @@ void GameController::Init()
     enemySpawner = GameObjectManager::GetInstance().CreateGameObject()->AddComponent<EnemySpawner>();
     enemySpawner->destroyedAllEnemies.Add(&endOfWaveEventItem);
     enemySpawner->refreshScore.Add(&refreshScoreEventItem);
+    enemySpawner->SetSoundEngine(soundEngine);
 
+    
     ShowControl();
 }
 
@@ -113,7 +124,7 @@ void GameController::InitTexts()
     //Finish Text
     auto finishGameObject = gameObjectManager.CreateGameObject(
         Transform(
-            glm::vec2(150.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 120.0f)
+            glm::vec2(150.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 130.0f)
         )
     );
     finishText = finishGameObject->AddComponent<Text2DRenderComponent>(RendererMode::LATERENDER, font, FINISH_TEXT);
@@ -123,7 +134,7 @@ void GameController::InitTexts()
     //Game Over Text
     auto gameOverGameObject = gameObjectManager.CreateGameObject(
         Transform(
-            glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 110.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 20.0f),
+            glm::vec2(Game::mainCamera.GetResolution().GetWidth() / 2.0f - 90.0f, Game::mainCamera.GetResolution().GetHeight() / 2.0f - 20.0f),
             glm::vec2(1.5f, 1.5f)
         )
     );
@@ -149,7 +160,9 @@ void GameController::Update()
 
 void GameController::Destroy()
 {
+    enemySpawner->StopSpawning();
     enemySpawner->ClearSpawnedEnemies();
+    soundEngine->drop();
     UpdaterComponent::Destroy();
 }
 
@@ -170,6 +183,8 @@ void GameController::ShowControl()
     auto& buffSpawner = BuffSpawner::GetInstance();
     buffSpawner.ClearActiveBuffs();
     buffSpawner.ResetLimits();
+
+    StopBackgroundMusic();
 }
 
 void GameController::ShowIntro()
@@ -190,6 +205,7 @@ void GameController::StartGame()
     startText->isActive = false;
     StartTimer();
     player->SetFrozen(false);
+    backgroundMusic = soundEngine->play2D("Assets/Sounds/8-bit-space-cuted.mp3", true, false, true);
 }
 
 void GameController::CheckKeyboard()
@@ -250,7 +266,7 @@ void GameController::SpawnNextWave()
 
     if (waveNumber > WAVE_COUNT)
     {
-        boss = BossEnemy::Create();
+        boss = BossEnemy::Create(soundEngine);
         boss->onArrived.Add(&bossArrivedEventItem);
         boss->onDead.Add(&bossDestroyedEventItem);
         return;
@@ -480,7 +496,7 @@ void GameController::DeadOfPlayer()
 
 void GameController::OnBossArrived()
 {
-    hero = HeroController::Create();
+    hero = HeroController::Create(soundEngine);
     hero->onLeftMap.Add(&heroLeftEventItem);
 }
 
@@ -510,4 +526,14 @@ void GameController::RefreshWaves()
         waveStr += "?";
 
     waveText->data.SetText("Waves: " + waveStr + "/" + std::to_string(WAVE_COUNT));
+}
+
+void GameController::StopBackgroundMusic()
+{
+    if (backgroundMusic)
+    {
+        backgroundMusic->stop();
+        backgroundMusic->drop();
+        backgroundMusic = nullptr;
+    }
 }

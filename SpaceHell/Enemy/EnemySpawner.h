@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <irrklang/irrKlang.h>
 
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/System/UpdaterComponent.h>
@@ -30,6 +31,7 @@ protected:
 	int waveEnemyNumber;
 	EnemyDestroyEventItem enemyDestroyEventItem;
 	EnemyKilledByPlayerEvenItem enemyKilledByPlayerEvenItem;
+	irrklang::ISoundEngine* soundEngine;
 
 	EnemySpawner(Learning2DEngine::System::GameObject* gameObject);
 
@@ -51,5 +53,15 @@ public:
 
 	//It works only when the spawner is stopped, otherwise it does nothing
 	void SetEnemies(const std::vector<EnemySpawnerItem>& enemiesToSpawn);
+
+	inline void SetSoundEngine(irrklang::ISoundEngine* soundEngine)
+	{
+		this->soundEngine = soundEngine;
+	}
+
+	inline irrklang::ISoundEngine* GetSoundEngine()
+	{
+		return this->soundEngine;
+	}
 };
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <irrklang/irrKlang.h>
+
 #include <Learning2DEngine/Animator/AnimationController.h>
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/Physics/BoxColliderComponent.h>
@@ -12,7 +14,7 @@ constexpr float BOSS_SPEED = 100.0f;
 constexpr glm::vec2 BOSS_COLLIDER_OFFSET(85.0f, 35.0f);
 constexpr float ARRIVE_POINT_Y = 50.0f;
 constexpr int BOSS_DESTRUCTION_NUMBER = 12;
-constexpr float BOSS_ANIMATION_SPEED = 0.3f;
+constexpr float BOSS_ANIMATION_SPEED = 0.25f;
 
 class BossEnemy : public BaseEnemy
 {
@@ -23,8 +25,9 @@ protected:
 	bool isArrived;
 	bool isDying;
 	float dyingTimer;
+	irrklang::ISoundEngine* soundEngine;
 
-	BossEnemy(Learning2DEngine::System::GameObject* gameObject);
+	BossEnemy(Learning2DEngine::System::GameObject* gameObject, irrklang::ISoundEngine* soundEngine);
 
 	void Init() override;
 	void Update() override;
@@ -40,6 +43,6 @@ public:
 	void Hit(int damage = 1) override;
 	void Kill() override;
 
-	static BossEnemy* Create();
+	static BossEnemy* Create(irrklang::ISoundEngine* soundEngine);
 };
 

@@ -12,10 +12,11 @@
 using namespace Learning2DEngine::System;
 using namespace Learning2DEngine::Render;
 using namespace Learning2DEngine::Physics;
+using namespace irrklang;
 
-FighterEnemy::FighterEnemy(GameObject* gameObject)
+FighterEnemy::FighterEnemy(GameObject* gameObject, ISoundEngine* soundEngine)
 	: BaseEnemy(gameObject, glm::vec2(0.0f, 1.0f), FIGHTER_SPEED, FIGHTER_LIFE, FIGHTER_BUFF_SPAWN, FIGHTER_POINT), Component(gameObject),
-	canShoot(true), reloadTimer(0.0f)
+	canShoot(true), reloadTimer(0.0f), soundEngine(soundEngine)
 {
 }
 
@@ -73,6 +74,8 @@ void FighterEnemy::Shoot()
 				8,
 				0.1f
 			);
+			if (soundEngine)
+				soundEngine->play2D("Assets/Sounds/enemy_shoot.mp3");
 		}
 	}
 }
@@ -90,9 +93,9 @@ void FighterEnemy::Reload()
 	}
 }
 
-FighterEnemy* FighterEnemy::Create(const glm::vec2& position)
+FighterEnemy* FighterEnemy::Create(const glm::vec2& position, ISoundEngine* soundEngine)
 {
 	auto go = GameObjectManager::GetInstance().CreateGameObject(Transform(position, FIGHTER_SIZE, 180.0f));
 
-	return go->AddComponent<FighterEnemy>();
+	return go->AddComponent<FighterEnemy>(soundEngine);
 }

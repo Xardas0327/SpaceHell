@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <irrklang/irrKlang.h>
 
 #include <Learning2DEngine/System/GameObject.h>
 #include <Learning2DEngine/System/UpdaterComponent.h>
@@ -25,7 +26,7 @@ enum class GameStatus { Menu, Intro, Play, Ended };
 
 constexpr float TIME_BETWEEN_WAVES = 5.0f;
 constexpr int WAVE_COUNT = 10;
-constexpr const char* CONTROL_TEXT = "Control:\nMove - WASD or Arrows\nShoot - Space\nF  - Show/Hide FPS";
+constexpr const char* CONTROL_TEXT = "Control:\nMove: WASD or Arrows\nShoot: SPACE\nShow/Hide FPS: F";
 constexpr const char* PRESS_TEXT = "Press ENTER";
 constexpr const char* START_TEXT = "The Akruh Empire attack our galaxy and\nthere is only ONE person, who can save us.\nBut the hero is out of office.\nSo...\nGood luck Rookie!";
 constexpr const char* GAME_OVER_TEXT = "GAME OVER";
@@ -63,6 +64,8 @@ protected:
     glm::vec2 playerStartPosition;
     BossEnemy* boss;
     HeroController* hero;
+    irrklang::ISoundEngine* soundEngine;
+    irrklang::ISound* backgroundMusic;
 
     GameController(Learning2DEngine::System::GameObject* gameObject);
 
@@ -88,5 +91,6 @@ protected:
     void OnHeroLeft() override;
     void RefreshScore();
     void RefreshWaves();
+    void StopBackgroundMusic();
 };
 

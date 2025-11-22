@@ -1,5 +1,7 @@
 #pragma once
 
+#include <irrklang/irrKlang.h>
+
 #include "BaseEnemy.h"
 
 #include <Learning2DEngine/System/GameObject.h>
@@ -20,8 +22,9 @@ class FighterEnemy : public BaseEnemy
 protected:
 	bool canShoot;
 	float reloadTimer;
+	irrklang::ISoundEngine* soundEngine;
 
-	FighterEnemy(Learning2DEngine::System::GameObject* gameObject);
+	FighterEnemy(Learning2DEngine::System::GameObject* gameObject, irrklang::ISoundEngine* soundEngine);
 
 	void Init() override;
 	void Update() override;
@@ -31,6 +34,6 @@ protected:
 	void Reload();
 
 public:
-	static FighterEnemy* Create(const glm::vec2& position);
+	static FighterEnemy* Create(const glm::vec2& position, irrklang::ISoundEngine* soundEngine);
 };
 
