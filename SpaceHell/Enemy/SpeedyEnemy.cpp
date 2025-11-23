@@ -72,6 +72,12 @@ void SpeedyEnemy::Update()
 		RefreshShieldPosition();
 }
 
+void SpeedyEnemy::Destroy()
+{
+	BaseEnemy::Destroy();
+	GameObjectManager::GetInstance().DestroyGameObject(shieldSprite);
+}
+
 bool SpeedyEnemy::CheckOutOfScreen()
 {
 	// Change direction and reduce life when going out from the bottom

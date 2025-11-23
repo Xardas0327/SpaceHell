@@ -26,6 +26,7 @@ protected:
 
 	void Init() override;
 	void Update() override;
+	void Destroy() override;
 
 	bool CheckOutOfScreen() override;
 	void RefreshShieldPosition();
