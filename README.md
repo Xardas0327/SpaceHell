@@ -2,6 +2,10 @@
 
 This repository and game was made for the [Game Off 2025](https://itch.io/jam/game-off-2025)
 
+## Requirement
+- Windows 11 64 bit  
+_Note: it should work on Windows 10 too._
+
 ## Control
 - Move: WASD or Arrows
 - Shoot: Space
